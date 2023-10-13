@@ -18,11 +18,13 @@ const SignInForm = () => {
 
     const logGoogleUser = async () => {
         const { user } = await signInWithGooglePopup();
+        console.log(user);
         await createUserDocumentFromAuth(user);
     }
 
     const logGithubUser = async () => {
         const { user } = await signInWithGithubPopup();
+        console.log(user);
         await createUserDocumentFromAuth(user);
     }
 

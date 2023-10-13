@@ -47,8 +47,9 @@ export const signInWithGoogleRedirect = () =>
   signInWithGoogleRedirect(auth, googleProvider);
 
 const githubProvider = new GithubAuthProvider();
-export const signInWithGithubPopup = () =>
-  signInWithPopup(auth, githubProvider);
+export const signInWithGithubPopup = () => {
+  return signInWithPopup(auth, githubProvider);
+};
 
 export const db = getFirestore();
 
