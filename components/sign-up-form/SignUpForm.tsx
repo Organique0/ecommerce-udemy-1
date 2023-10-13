@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEvent, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "@/app/utils/firebase/firebase.utils"
 import FormInput from "../form-input/FormInput"
 import "./sign-up-form.styles.scss"
@@ -13,6 +13,8 @@ const defaultFormFields = {
 }
 
 const SignUpForm = () => {
+  const [loaded, setLoaded] = useState(false);
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -49,47 +51,53 @@ const SignUpForm = () => {
     })
   }
 
-  return (
-    <div className="sign-up-container">
-      <h2>Don't have an account?</h2>
-      <span>Sign up with your emal and password</span>
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          label="Display Name"
-          type="text"
-          required
-          onChange={handleChange}
-          name="displayName"
-          value={displayName}
-        />
-        <FormInput
-          label="Email"
-          type="text"
-          required
-          onChange={handleChange}
-          name="email"
-          value={email}
-        />
-        <FormInput
-          label="Password"
-          type="password"
-          required
-          onChange={handleChange}
-          name="password"
-          value={password}
-        />
-        <FormInput
-          label="Confirm password"
-          type="password"
-          required
-          onChange={handleChange}
-          name="confirmPassword"
-          value={confirmPassword}
-        />
+  useEffect(() => {
+    setLoaded(true);
+  }, [])
 
-        <Button type="submit">Sign up</Button>
-      </form>
-    </div>
+  return (
+    loaded && (
+      <div className="sign-up-container">
+        <h2>Don't have an account?</h2>
+        <span>Sign up with your emal and password</span>
+        <form onSubmit={handleSubmit}>
+          <FormInput
+            label="Display Name"
+            type="text"
+            required
+            onChange={handleChange}
+            name="displayName"
+            value={displayName}
+          />
+          <FormInput
+            label="Email"
+            type="text"
+            required
+            onChange={handleChange}
+            name="email"
+            value={email}
+          />
+          <FormInput
+            label="Password"
+            type="password"
+            required
+            onChange={handleChange}
+            name="password"
+            value={password}
+          />
+          <FormInput
+            label="Confirm password"
+            type="password"
+            required
+            onChange={handleChange}
+            name="confirmPassword"
+            value={confirmPassword}
+          />
+
+          <Button type="submit">Sign up</Button>
+        </form>
+      </div>
+    )
   )
 }
 

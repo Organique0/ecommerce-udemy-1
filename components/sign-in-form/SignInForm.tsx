@@ -3,7 +3,7 @@
 import { signInWithGooglePopup, createUserDocumentFromAuth, signInWithGithubPopup, createAuthUserWithEmailAndPassword, signInWithEmailAndPassword } from "@/app/utils/firebase/firebase.utils"
 import Button from "../button/Button"
 import FormInput from "../form-input/FormInput"
-import { useState, FormEvent, ChangeEvent } from "react"
+import { useState, FormEvent, ChangeEvent, useEffect } from "react"
 import "./sign-in-form.styles.scss"
 
 const defaultFormFields = {
@@ -12,6 +12,7 @@ const defaultFormFields = {
 }
 
 const SignInForm = () => {
+    const [loaded, setLoaded] = useState(false);
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
@@ -53,34 +54,40 @@ const SignInForm = () => {
         })
     }
 
+    useEffect(() => {
+        setLoaded(true);
+    }, [])
+
     return (
-        <div className="sign-in-container">
-            <h2>I already have an accout</h2>
-            <span>Sign in with your email and password</span>
-            <form onSubmit={handleSubmit}>
-                <FormInput
-                    label="Email"
-                    type="text"
-                    required
-                    onChange={handleChange}
-                    name="email"
-                    value={email}
-                />
-                <FormInput
-                    label="Password"
-                    type="password"
-                    required
-                    onChange={handleChange}
-                    name="password"
-                    value={password}
-                />
-                <Button type="submit">Sign in</Button>
-                <div className="buttons-container">
-                    <Button onClick={logGoogleUser} type="button" buttonType="google">google</Button>
-                    <Button onClick={logGithubUser} type="button" buttonType="github">github</Button>
-                </div>
-            </form>
-        </div>
+        loaded && (
+            <div className="sign-in-container">
+                <h2>I already have an accout</h2>
+                <span>Sign in with your email and password</span>
+                <form onSubmit={handleSubmit}>
+                    <FormInput
+                        label="Email"
+                        type="text"
+                        required
+                        onChange={handleChange}
+                        name="email"
+                        value={email}
+                    />
+                    <FormInput
+                        label="Password"
+                        type="password"
+                        required
+                        onChange={handleChange}
+                        name="password"
+                        value={password}
+                    />
+                    <Button type="submit">Sign in</Button>
+                    <div className="buttons-container">
+                        <Button onClick={logGoogleUser} type="button" buttonType="google">google</Button>
+                        <Button onClick={logGithubUser} type="button" buttonType="github">github</Button>
+                    </div>
+                </form>
+            </div>
+        )
     )
 }
 
