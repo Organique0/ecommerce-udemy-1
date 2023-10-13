@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react"
 import "./form-input.style.scss"
 
 interface FormInputProps {
@@ -6,7 +7,7 @@ interface FormInputProps {
     required: boolean,
     name: string,
     value: string,
-    onChange: () => void,
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void,
 }
 
 const FormInput = ({ label, ...other }: FormInputProps) => {

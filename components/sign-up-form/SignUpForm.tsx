@@ -1,8 +1,9 @@
 "use client"
 import { ChangeEvent, FormEvent, useState } from "react"
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "@/app/utils/firebase/firebase.utils"
-import FormInput from "../form-input/form-input.component"
+import FormInput from "../form-input/FormInput"
 import "./sign-up-form.styles.scss"
+import Button from "../button/Button"
 
 const defaultFormFields = {
   displayName: "",
@@ -57,7 +58,7 @@ const SignUpForm = () => {
           label="Display Name"
           type="text"
           required
-          onChange={() => handleChange}
+          onChange={handleChange}
           name="displayName"
           value={displayName}
         />
@@ -65,28 +66,28 @@ const SignUpForm = () => {
           label="Email"
           type="text"
           required
-          onChange={() => handleChange}
+          onChange={handleChange}
           name="email"
           value={email}
         />
         <FormInput
           label="Password"
-          type="text"
+          type="password"
           required
-          onChange={() => handleChange}
+          onChange={handleChange}
           name="password"
           value={password}
         />
         <FormInput
           label="Confirm password"
-          type="text"
+          type="password"
           required
-          onChange={() => handleChange}
+          onChange={handleChange}
           name="confirmPassword"
           value={confirmPassword}
         />
 
-        <button type="submit">Sign up</button>
+        <Button type="submit">Sign up</Button>
       </form>
     </div>
   )

@@ -7,6 +7,8 @@ import {
   GithubAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  signInWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 
 import {
@@ -37,13 +39,12 @@ const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
   prompt: "select_account",
 });
-
-//opens the google login popup
+//opens a popup window to sign in with google
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
-
 // redirects to google auth page
-//export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+  signInWithGoogleRedirect(auth, googleProvider);
 
 const githubProvider = new GithubAuthProvider();
 export const signInWithGithubPopup = () =>
@@ -79,4 +80,12 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  return await signInWithCredential(
+    auth,
+    EmailAuthProvider.credential(email, password)
+  );
 };
