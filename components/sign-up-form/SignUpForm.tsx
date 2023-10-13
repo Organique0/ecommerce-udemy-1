@@ -1,9 +1,11 @@
 "use client"
-import { ChangeEvent, FormEvent, useEffect, useState } from "react"
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react"
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "@/app/utils/firebase/firebase.utils"
 import FormInput from "../form-input/FormInput"
 import "./sign-up-form.styles.scss"
 import Button from "../button/Button"
+import { UserContext } from "@/contexts/user.context"
+import { User, UserCredential } from "firebase/auth"
 
 const defaultFormFields = {
   displayName: "",
@@ -18,6 +20,8 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -25,10 +29,11 @@ const SignUpForm = () => {
       return
     };
     try {
-      //FIXME:figure out types
-      const { user }: any = await createAuthUserWithEmailAndPassword(email, password);
-
-      await createUserDocumentFromAuth(user, { displayName });
+      const res = await createAuthUserWithEmailAndPassword(email, password);
+      if (res && res.user !== undefined) {
+        await createUserDocumentFromAuth(res.user, { displayName });
+        setCurrentUser(res.user);
+      }
       resetFormFields();
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {

@@ -3,8 +3,9 @@
 import { signInWithGooglePopup, createUserDocumentFromAuth, signInWithGithubPopup, createAuthUserWithEmailAndPassword, signInWithEmailAndPassword } from "@/app/utils/firebase/firebase.utils"
 import Button from "../button/Button"
 import FormInput from "../form-input/FormInput"
-import { useState, FormEvent, ChangeEvent, useEffect } from "react"
+import { useState, FormEvent, ChangeEvent, useEffect, useContext } from "react"
 import "./sign-in-form.styles.scss"
+import { UserContext } from "@/contexts/user.context"
 
 const defaultFormFields = {
     email: "",
@@ -16,22 +17,27 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
+    const { setCurrentUser, currentUser } = useContext(UserContext);
+
     const logGoogleUser = async () => {
         const { user } = await signInWithGooglePopup();
-        console.log(user);
+        setCurrentUser(user);
         await createUserDocumentFromAuth(user);
     }
 
     const logGithubUser = async () => {
         const { user } = await signInWithGithubPopup();
-        console.log(user);
+        setCurrentUser(user);
         await createUserDocumentFromAuth(user);
     }
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            await signInWithEmailAndPassword(email, password);
+            const res = await signInWithEmailAndPassword(email, password);
+            if (res && res.user !== undefined) {
+                setCurrentUser(res.user);
+            }
             resetFormFields();
         } catch (error: any) {
             if (error.code === "auth/invalid-email"

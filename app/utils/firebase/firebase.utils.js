@@ -9,6 +9,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithCredential,
   EmailAuthProvider,
+  signOut,
 } from "firebase/auth";
 
 import {
@@ -89,4 +90,8 @@ export const signInWithEmailAndPassword = async (email, password) => {
     auth,
     EmailAuthProvider.credential(email, password)
   );
+};
+
+export const signOutUser = async () => {
+  return await signOut(auth);
 };

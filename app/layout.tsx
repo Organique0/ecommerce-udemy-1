@@ -2,6 +2,7 @@ import NavBar from '@/components/navigation/NavBar'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import "./index.scss"
+import { UserProvider } from '@/contexts/user.context'
 
 const sans = Open_Sans({ subsets: ['latin'], })
 
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={sans.className}>
-        <NavBar />
-        {children}
+        <UserProvider>
+          <NavBar />
+          {children}
+        </UserProvider>
       </body>
     </html>
   )
