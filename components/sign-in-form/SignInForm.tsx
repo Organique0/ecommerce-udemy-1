@@ -17,27 +17,18 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
-    const { setCurrentUser, currentUser } = useContext(UserContext);
-
     const logGoogleUser = async () => {
-        const { user } = await signInWithGooglePopup();
-        setCurrentUser(user);
-        await createUserDocumentFromAuth(user);
+        await signInWithGooglePopup();
     }
 
     const logGithubUser = async () => {
-        const { user } = await signInWithGithubPopup();
-        setCurrentUser(user);
-        await createUserDocumentFromAuth(user);
+        await signInWithGithubPopup();
     }
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            const res = await signInWithEmailAndPassword(email, password);
-            if (res && res.user !== undefined) {
-                setCurrentUser(res.user);
-            }
+            await signInWithEmailAndPassword(email, password);
             resetFormFields();
         } catch (error: any) {
             if (error.code === "auth/invalid-email"

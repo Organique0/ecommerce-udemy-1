@@ -10,6 +10,7 @@ import {
   signInWithCredential,
   EmailAuthProvider,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import {
@@ -54,6 +55,7 @@ export const signInWithGithubPopup = () => {
 
 export const db = getFirestore();
 
+//only runs if the user does not already exist
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
@@ -95,3 +97,7 @@ export const signInWithEmailAndPassword = async (email, password) => {
 export const signOutUser = async () => {
   return await signOut(auth);
 };
+
+//permanently open listener that runs the callback when the auth state changes
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
