@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import "./index.scss"
 import { UserProvider } from '@/contexts/user.context'
+import { CartProvider } from '@/contexts/cart.context'
 
 const sans = Open_Sans({ subsets: ['latin'], })
 
@@ -20,8 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={sans.className}>
         <UserProvider>
-          <NavBar />
-          {children}
+          <CartProvider>
+            <NavBar />
+            {children}
+          </CartProvider>
         </UserProvider>
       </body>
     </html>

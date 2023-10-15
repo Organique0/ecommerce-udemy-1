@@ -5,9 +5,13 @@ import Image from "next/image"
 import { UserContext } from "@/contexts/user.context"
 import { useContext } from "react"
 import { signOutUser } from "@/app/utils/firebase/firebase.utils"
+import CartIconComponent from "../cart-icon/cart-icon.component"
+import CartDropdown from "../cart-dropdown/cart-dropdown.component"
+import { CartContext } from "@/contexts/cart.context"
 
 const NavBar = () => {
     const { currentUser } = useContext(UserContext);
+    const { cartOpen } = useContext(CartContext);
 
     return (
         <div className="navigation">
@@ -26,7 +30,9 @@ const NavBar = () => {
                     </Link>
                 )}
                 <p>user email:{currentUser?.email}</p>
+                <CartIconComponent />
             </div>
+            {cartOpen && <CartDropdown />}
         </div>
     )
 }
