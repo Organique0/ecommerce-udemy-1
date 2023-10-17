@@ -5,7 +5,7 @@ import { useContext } from "react";
 import "./checkout.styles.scss"
 
 const page = () => {
-    const { cartItems, addItemToCart, removeCarItem, removeAllOfItemInCart } = useContext(CartContext);
+    const { cartItems, addItemToCart, removeCarItem, removeAllOfItemInCart, cartItemsTotal } = useContext(CartContext);
     return (
         <div className="checkout-container" >
             <div className="checkout-header">
@@ -28,6 +28,9 @@ const page = () => {
             {cartItems.map((product) => (
                 <CartItemCheckout product={product} add={addItemToCart} remove={removeCarItem} removeAll={removeAllOfItemInCart} />
             ))}
+            <span className="total">
+                Total: {cartItemsTotal as React.ReactNode}
+            </span>
         </div>
     )
 }
