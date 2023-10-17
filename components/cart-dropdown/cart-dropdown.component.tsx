@@ -4,6 +4,7 @@ import Button from "../button/Button"
 import "./cart-dropdown.styles.scss"
 import { CartContext } from "@/contexts/cart.context";
 import CartItem from "../cart-item/CartItem";
+import Link from "next/link";
 
 const CartDropdown = () => {
     const { cartItems } = useContext(CartContext);
@@ -15,7 +16,9 @@ const CartDropdown = () => {
                     <CartItem cartItem={product} />
                 ))}
             </div>
-            <Button type="button">Go to checkout</Button>
+            <Link href="checkout">
+                <Button type="button">Go to checkout</Button>
+            </Link>
         </div>
     )
 }
