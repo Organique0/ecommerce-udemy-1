@@ -11,7 +11,7 @@ interface CategoryPageProps {
 
 const CategoryItem = ({ category }: CategoryPageProps) => {
     return (
-        <div className="category-container" key={category.id}>
+        <div className="home-category-container" key={category.id}>
             <Image
                 src={category.imageUrl}
                 alt="category-image"

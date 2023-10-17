@@ -1,3 +1,4 @@
+import SHOP_DATA from "@/data/shop-data";
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -16,12 +17,15 @@ import {
 import {
   getFirestore,
   collection,
+  writeBatch,
   addDoc,
   doc,
   setDoc,
   getDoc,
   updateDoc,
   deleteDoc,
+  query,
+  getDocs,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -34,6 +38,43 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+
+export const db = getFirestore();
+
+//seed the database
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+};
+
+//addCollectionAndDocuments("categories", SHOP_DATA);
+//console.log("Added categories");
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, "categories");
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+  const categoryMap = querySnapshot.docs.reduce((acc, doc) => {
+    const { title, items } = doc.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+
+  return categoryMap;
+};
+
+// ****************************AUTHENITCATION *************************************
 
 export const auth = getAuth();
 
@@ -52,8 +93,6 @@ const githubProvider = new GithubAuthProvider();
 export const signInWithGithubPopup = () => {
   return signInWithPopup(auth, githubProvider);
 };
-
-export const db = getFirestore();
 
 //only runs if the user does not already exist
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {

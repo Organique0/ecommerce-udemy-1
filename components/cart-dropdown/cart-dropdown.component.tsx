@@ -4,11 +4,11 @@ import Button from "../button/Button"
 import "./cart-dropdown.styles.scss"
 import { CartContext } from "@/contexts/cart.context";
 import CartItem from "../cart-item/CartItem";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const CartDropdown = () => {
     const { cartItems } = useContext(CartContext);
-
+    const router = useRouter()
     return (
         <div className="cart-dropdown-container">
             <div className="cart-items" >
@@ -16,9 +16,7 @@ const CartDropdown = () => {
                     <CartItem cartItem={product} />
                 ))}
             </div>
-            <Link href="checkout">
-                <Button type="button">Go to checkout</Button>
-            </Link>
+            <Button type="button" onClick={() => router.push('/checkout')}>Go to checkout</Button>
         </div>
     )
 }
