@@ -8,6 +8,7 @@ export const CartContext = createContext({
     cartItems: [] as ProductWithQuantity[],
     addItemToCart: (item: ProductWithQuantity) => { },
     cartItemsCount: 0 as Number,
+    cartItemsTotal: 0 as Number,
     removeCarItem: (itemToRemove: ProductWithQuantity) => { },
     removeAllOfItemInCart: (itemToRemove: ProductWithQuantity) => { },
 });
@@ -22,6 +23,7 @@ interface CartContextValue {
     cartItems: Array<ProductWithQuantity>,
     addItemToCart: (item: ProductWithQuantity) => void;
     cartItemsCount: Number,
+    cartItemsTotal: Number,
     removeCarItem: (itemToRemove: ProductWithQuantity) => void;
     removeAllOfItemInCart: (itemToRemove: ProductWithQuantity) => void;
 }
@@ -30,6 +32,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const [cartOpen, setCartOpen] = useState<boolean>(false);
     const [cartItems, setCartItems] = useState<Array<ProductWithQuantity>>([]);
     const [cartItemsCount, setCartItemsCount] = useState<number>(0);
+    const [cartItemsTotal, setCartItemsTotal] = useState<number>(0);
 
     const addCartItem = (itemToAdd: ProductWithQuantity) => {
         const existingCartItem = cartItems.find((cartItem) => itemToAdd.id === cartItem.id);
@@ -86,15 +89,23 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         }, 0);
     }
 
+    const sumItemsInCart = () => {
+        if (!cartItems) return 0;
+        return cartItems.reduce((total, cartItem) => {
+            return total + cartItem.price
+        }, 0)
+    }
+
     useEffect(() => {
         setCartItemsCount(countItemsInCart());
+        setCartItemsTotal(sumItemsInCart());
     }, [cartItems]);
 
 
     const toggleCart = (isOpen: boolean) => {
         setCartOpen(isOpen);
     };
-    const value: CartContextValue = { cartOpen, setCartOpen: toggleCart, cartItems, addItemToCart, cartItemsCount, removeCarItem, removeAllOfItemInCart };
+    const value: CartContextValue = { cartOpen, setCartOpen: toggleCart, cartItems, addItemToCart, cartItemsCount, cartItemsTotal, removeCarItem, removeAllOfItemInCart };
 
     return (
         <CartContext.Provider value={value}>
