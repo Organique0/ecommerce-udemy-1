@@ -1,6 +1,7 @@
 "use client"
 import { ChangeEvent } from "react"
-import "./form-input.style.scss"
+import "./form-input.style.js"
+import { GroupContainer, FormInputLabel, FormInputField } from "./form-input.style.js"
 
 interface FormInputProps {
     label: string,
@@ -11,16 +12,16 @@ interface FormInputProps {
     onChange: (e: ChangeEvent<HTMLInputElement>) => void,
 }
 
-const FormInput = ({ label, ...other }: FormInputProps) => {
+const FormInput = ({ label, type, ...other }: FormInputProps) => {
     return (
-        <div className='group'>
-            <input className='form-input' {...other} />
+        <GroupContainer >
+            <FormInputField type={type} {...other} />
             {label &&
-                <label className={`${other.value.length ? `shrink` : ``} form-input-label`}>
+                <FormInputLabel className={`${other.value.length ? `shrink` : ``}`}>
                     {label}
-                </label>
+                </FormInputLabel>
             }
-        </div>
+        </GroupContainer>
     )
 }
 

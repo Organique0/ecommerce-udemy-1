@@ -2,13 +2,14 @@
 import CartItemCheckout from "@/components/cart-item-checkout/CartItemCheckout";
 import { CartContext } from "@/contexts/cart.context";
 import { useContext } from "react";
-import "./checkout.styles.scss"
+import "./checkout.styles.js"
+import { CheckoutContainer, CheckoutHeader, Total } from "./checkout.styles.js";
 
 const page = () => {
     const { cartItems, addItemToCart, removeCarItem, removeAllOfItemInCart, cartItemsTotal } = useContext(CartContext);
     return (
-        <div className="checkout-container" >
-            <div className="checkout-header">
+        <CheckoutContainer>
+            <CheckoutHeader>
                 <div className="header-block">
                     Product
                 </div>
@@ -24,14 +25,14 @@ const page = () => {
                 <div className="header-block">
                     Remove
                 </div>
-            </div>
+            </CheckoutHeader>
             {cartItems.map((product) => (
                 <CartItemCheckout product={product} add={addItemToCart} remove={removeCarItem} removeAll={removeAllOfItemInCart} />
             ))}
-            <span className="total">
+            <Total>
                 Total: {cartItemsTotal as React.ReactNode}
-            </span>
-        </div>
+            </Total>
+        </CheckoutContainer>
     )
 }
 

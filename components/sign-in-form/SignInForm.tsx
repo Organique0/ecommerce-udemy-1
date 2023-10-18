@@ -1,11 +1,11 @@
 "use client"
 
 import { signInWithGooglePopup, createUserDocumentFromAuth, signInWithGithubPopup, createAuthUserWithEmailAndPassword, signInWithEmailAndPassword } from "@/app/utils/firebase/firebase.utils"
-import Button from "../button/Button"
+import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import FormInput from "../form-input/FormInput"
 import { useState, FormEvent, ChangeEvent, useEffect, useContext } from "react"
-import "./sign-in-form.styles.scss"
-import { UserContext } from "@/contexts/user.context"
+import "./sign-in-form.styles.js"
+import { SignInContainer } from "./sign-in-form.styles.js"
 
 const defaultFormFields = {
     email: "",
@@ -13,6 +13,7 @@ const defaultFormFields = {
 }
 
 const SignInForm = () => {
+    //TODO: we could show a loader here
     const [loaded, setLoaded] = useState(false);
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
@@ -59,9 +60,8 @@ const SignInForm = () => {
 
     return (
         loaded && (
-            <div className="sign-in-container">
-                <h2>I already have an accout</h2>
-                <span>Sign in with your email and password</span>
+            <SignInContainer>
+
                 <form onSubmit={handleSubmit}>
                     <FormInput
                         label="Email"
@@ -79,13 +79,13 @@ const SignInForm = () => {
                         name="password"
                         value={password}
                     />
-                    <Button type="submit">Sign in</Button>
+                    <Button type="submit" buttonType={BUTTON_TYPE_CLASSES.base}>Sign in</Button>
                     <div className="buttons-container">
-                        <Button onClick={logGoogleUser} type="button" buttonType="google">google</Button>
-                        <Button onClick={logGithubUser} type="button" buttonType="github">github</Button>
+                        <Button onClick={logGoogleUser} type="button" buttonType={BUTTON_TYPE_CLASSES.google}>google</Button>
+                        <Button onClick={logGithubUser} type="button" buttonType={BUTTON_TYPE_CLASSES.github}>github</Button>
                     </div>
                 </form>
-            </div>
+            </SignInContainer>
         )
     )
 }

@@ -2,10 +2,9 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react"
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "@/app/utils/firebase/firebase.utils"
 import FormInput from "../form-input/FormInput"
-import "./sign-up-form.styles.scss"
-import Button from "../button/Button"
-import { UserContext } from "@/contexts/user.context"
-import { User, UserCredential } from "firebase/auth"
+import "./sign-up-form.styles.js"
+import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
+import { SignUpContainer } from "./sign-up-form.styles.js"
 
 const defaultFormFields = {
   displayName: "",
@@ -15,6 +14,7 @@ const defaultFormFields = {
 }
 
 const SignUpForm = () => {
+  //TODO: we could show a loader here
   const [loaded, setLoaded] = useState(false);
 
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -58,9 +58,8 @@ const SignUpForm = () => {
 
   return (
     loaded && (
-      <div className="sign-up-container">
-        <h2>Don't have an account?</h2>
-        <span>Sign up with your emal and password</span>
+      <SignUpContainer>
+
         <form onSubmit={handleSubmit}>
           <FormInput
             label="Display Name"
@@ -95,9 +94,9 @@ const SignUpForm = () => {
             value={confirmPassword}
           />
 
-          <Button type="submit">Sign up</Button>
+          <Button type="submit" buttonType={BUTTON_TYPE_CLASSES.base}>Sign up</Button>
         </form>
-      </div>
+      </SignUpContainer>
     )
   )
 }

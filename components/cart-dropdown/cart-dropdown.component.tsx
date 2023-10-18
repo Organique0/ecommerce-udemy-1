@@ -1,6 +1,6 @@
 "use client"
 import { useContext } from "react";
-import Button from "../button/Button"
+import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import "./cart-dropdown.styles.scss"
 import { CartContext } from "@/contexts/cart.context";
 import CartItem from "../cart-item/CartItem";
@@ -16,7 +16,7 @@ const CartDropdown = () => {
                     <CartItem cartItem={product} />
                 ))}
             </div>
-            <Button type="button" onClick={() => router.push('/checkout')}>Go to checkout</Button>
+            <Button type="button" buttonType={BUTTON_TYPE_CLASSES.base} onClick={() => router.push('/checkout')}>Go to checkout</Button>
         </div>
     )
 }

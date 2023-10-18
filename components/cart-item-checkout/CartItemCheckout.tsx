@@ -1,9 +1,7 @@
+"use client"
 import { ProductWithQuantity } from "@/contexts/cart.context"
 import Image from "next/image";
 import "./checkout-item.styles.scss"
-
-
-
 
 const CartItemCheckout = ({ product, add, remove, removeAll }: { product: ProductWithQuantity, add: (item: ProductWithQuantity) => void, remove: (item: ProductWithQuantity) => void, removeAll: (item: ProductWithQuantity) => void }) => {
     const { id, imageUrl, name, price, quantity } = product;

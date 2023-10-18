@@ -99,6 +99,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         setCartItemsCount(countItemsInCart());
         setCartItemsTotal(sumItemsInCart());
+        console.log(cartItemsTotal);
     }, [cartItems]);
 
 

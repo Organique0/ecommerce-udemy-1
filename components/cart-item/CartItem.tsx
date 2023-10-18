@@ -1,3 +1,4 @@
+"use client"
 import { ProductWithQuantity } from "@/contexts/cart.context";
 import Image from "next/image";
 import "./cart-items.styles.scss"

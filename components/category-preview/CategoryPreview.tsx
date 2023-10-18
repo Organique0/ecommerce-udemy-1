@@ -1,7 +1,6 @@
 import Link from "next/link"
 import ProductCard, { Product } from "../product-card/product-card.component"
 import "./category-preview.styles.scss"
-import { useState } from "react"
 
 const CategoryPreview = ({ title, products }: { title: string, products: Product[] }) => {
     //INFO:You can change the number of products in a preview
