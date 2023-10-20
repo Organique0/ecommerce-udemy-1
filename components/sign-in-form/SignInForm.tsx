@@ -4,8 +4,7 @@ import { signInWithGooglePopup, createUserDocumentFromAuth, signInWithGithubPopu
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import FormInput from "../form-input/FormInput"
 import { useState, FormEvent, ChangeEvent, useEffect, useContext } from "react"
-import "./sign-in-form.styles.js"
-import { SignInContainer } from "./sign-in-form.styles.js"
+import { SignInContainer } from "./sign-in-form.styles.jsx"
 
 const defaultFormFields = {
     email: "",

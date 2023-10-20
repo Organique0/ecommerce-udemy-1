@@ -1,7 +1,6 @@
 "use client"
 import { ChangeEvent } from "react"
-import "./form-input.style.js"
-import { GroupContainer, FormInputLabel, FormInputField } from "./form-input.style.js"
+import { GroupContainer, FormInputLabel, FormInputField } from "./form-input.style.jsx"
 
 interface FormInputProps {
     label: string,

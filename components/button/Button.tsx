@@ -1,5 +1,5 @@
 "use client"
-import { BaseButton, GithubSignInButton, GoogleSignInButton, InvertedButton } from "./button.styles"
+import { BaseButton, GithubSignInButton, GoogleSignInButton, InvertedButton } from "./button.styles.jsx"
 export const BUTTON_TYPE_CLASSES = {
     base: "base",
     google: "google-sign-in",
