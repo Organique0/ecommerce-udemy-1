@@ -1,6 +1,6 @@
 "use client"
 import { ChangeEvent } from "react"
-import { GroupContainer, FormInputLabel, FormInputField } from "./form-input.style.jsx"
+import { GroupContainer, FormInputLabel, FormInputField } from "./form-input.style"
 
 interface FormInputProps {
     label: string,
@@ -16,7 +16,7 @@ const FormInput = ({ label, type, ...other }: FormInputProps) => {
         <GroupContainer >
             <FormInputField type={type} {...other} />
             {label &&
-                <FormInputLabel className={`${other.value.length ? `shrink` : ``}`}>
+                <FormInputLabel shrink={!!other.value.length}>
                     {label}
                 </FormInputLabel>
             }

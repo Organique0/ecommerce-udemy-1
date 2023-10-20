@@ -1,4 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from 'styled-components';
+
+const shrinkLabelStyles = css`
+    top: -1px;
+    font-size: 10px;
+    color: gray;
+`
 
 export const GroupContainer = styled.div`
   position: relative;
@@ -18,13 +24,18 @@ export const FormInputField = styled.input`
   border-bottom: 1px solid gray;
   margin: 25px 0;
 
-  ${(props) => props.type === "password" && "letter-spacing: 0.3em;"}
-  &:focus {
-    outline: none;
+  &:focus{
+    outline:none
   }
+
+  ${({ type }) => type === "password" && css`letter-spacing:0.3em`};
 `;
 
-export const FormInputLabel = styled.label`
+interface FormInputLabelProps {
+  shrink: boolean;
+}
+
+export const FormInputLabel = styled.label<FormInputLabelProps>`
   color: black;
   font-size: 16px;
   font-weight: normal;
@@ -34,9 +45,5 @@ export const FormInputLabel = styled.label`
   top: 10px;
   transition: 300ms ease all;
 
-  &.shrink {
-    top: -1px;
-    font-size: 10px;
-    color: gray;
-  }
+  ${({ shrink }) => shrink && shrinkLabelStyles};
 `;
