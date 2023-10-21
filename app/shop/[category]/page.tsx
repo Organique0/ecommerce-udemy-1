@@ -1,4 +1,4 @@
-import { getCategoriesAndDocuments } from "@/app/utils/firebase/firebase.utils";
+import { getCategoriesAndDocuments } from "@/utils/firebase/firebase.utils";
 import ProductCard, { Product } from "@/components/product-card/product-card.component";
 import "./category.styles.scss"
 interface CategoryPageProps {

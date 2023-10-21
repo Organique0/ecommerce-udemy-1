@@ -1,6 +1,6 @@
 "use client"
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react"
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "@/app/utils/firebase/firebase.utils"
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "@/utils/firebase/firebase.utils"
 import FormInput from "../form-input/FormInput"
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import { SignUpContainer } from "./sign-up-form.styles.jsx"

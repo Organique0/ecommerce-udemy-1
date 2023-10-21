@@ -1,5 +1,5 @@
 import ProductCard, { Product } from "@/components/product-card/product-card.component";
-import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils";
+import { getCategoriesAndDocuments } from "@/utils/firebase/firebase.utils";
 import "./shop.styles.scss";
 import CategoryPreview from "@/components/category-preview/CategoryPreview";
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { signInWithGooglePopup, createUserDocumentFromAuth, signInWithGithubPopup, createAuthUserWithEmailAndPassword, signInWithEmailAndPassword } from "@/app/utils/firebase/firebase.utils"
+import { signInWithGooglePopup, createUserDocumentFromAuth, signInWithGithubPopup, createAuthUserWithEmailAndPassword, signInWithEmailAndPassword } from "@/utils/firebase/firebase.utils"
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import FormInput from "../form-input/FormInput"
 import { useState, FormEvent, ChangeEvent, useEffect, useContext } from "react"
