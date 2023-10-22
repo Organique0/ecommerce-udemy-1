@@ -21,7 +21,7 @@ const INITIAL_STATE = {
     currentUser: null,
 };
 
-const userReducer = (state: any, action: { type: any; payload: any; }) => {
+const userReducer = (state: any, action: { type: string; payload: User | null }) => {
     const { type, payload } = action;
 
     switch (type) {
