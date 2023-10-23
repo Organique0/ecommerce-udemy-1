@@ -2,8 +2,11 @@ import NavBar from '@/components/navigation/NavBar'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import "./index.scss"
+//old providers
 import { UserProvider } from '@/contexts/user.context'
 import { CartProvider } from '@/contexts/cart.context'
+//new providers
+import ReduxProvider from '@/providers/ReduxProvider'
 
 const sans = Open_Sans({ subsets: ['latin'], })
 
@@ -20,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={sans.className}>
-        <UserProvider>
+        <ReduxProvider>
+          {/* <UserProvider> */}
           <CartProvider>
             <NavBar />
             {children}
           </CartProvider>
-        </UserProvider>
+          {/* </UserProvider> */}
+        </ReduxProvider>
       </body>
     </html>
   )

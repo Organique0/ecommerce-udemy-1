@@ -74,7 +74,16 @@ export const getCategoriesAndDocuments = async () => {
   return categoryMap;
 };
 
-// ****************************AUTHENITCATION *************************************
+//Use this with Redux
+export const getCategoriesAndDocumentsContext = async () => {
+  const collectionRef = collection(db, "categories");
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((doc) => doc.data());
+};
+
+// ****************************AUTHENTICATION *************************************
 
 export const auth = getAuth();
 

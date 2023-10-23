@@ -1,4 +1,5 @@
 "use client"
+//Here as an example of using React context
 import { Product } from "@/components/product-card/product-card.component";
 import { createContext, useReducer, Reducer } from "react";
 import createAction from "@/utils/reducer/reducer.utils"
