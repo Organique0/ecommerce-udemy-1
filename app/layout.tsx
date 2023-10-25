@@ -25,10 +25,10 @@ export default function RootLayout({
       <body className={sans.className}>
         <ReduxProvider>
           {/* <UserProvider> */}
-          <CartProvider>
-            <NavBar />
-            {children}
-          </CartProvider>
+          {/* <CartProvider> */}
+          <NavBar />
+          {children}
+          {/* </CartProvider> */}
           {/* </UserProvider> */}
         </ReduxProvider>
       </body>

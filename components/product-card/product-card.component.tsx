@@ -4,6 +4,9 @@ import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import Image from "next/image"
 import { useContext, useEffect, useState } from "react"
 import { CartContext } from "@/contexts/cart.context"
+import { addItemToCart } from "@/store/cart/cart.action"
+import { useDispatch, useSelector } from "react-redux"
+import { selectCartItems } from "@/store/cart/cart.selector"
 
 export interface Product {
   id: number,
@@ -14,10 +17,13 @@ export interface Product {
 
 const ProductCard = ({ product }: { product: Product }) => {
   const { name, price, imageUrl } = product
-  const { addItemToCart } = useContext(CartContext)
+  //const { addItemToCart } = useContext(CartContext)
 
-  function handleAddToCart(product: any) {
-    addItemToCart(product)
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
+
+  function handleAddToCart(product: Product) {
+    dispatch(addItemToCart(cartItems, product))
   }
 
   const [mounted, setMounted] = useState(false);

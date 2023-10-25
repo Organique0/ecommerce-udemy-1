@@ -6,9 +6,12 @@ import { CartContext } from "@/contexts/cart.context";
 import CartItem from "../cart-item/CartItem";
 import { useRouter } from "next/navigation";
 import { CartDropdownContainer, CartItems, EmptyMessage } from "./cart-dropdown.styles.jsx";
+import { useSelector } from "react-redux";
+import { selectCartItems } from "@/store/cart/cart.selector";
 
 const CartDropdown = () => {
-    const { cartItems } = useContext(CartContext);
+    const cartItems = useSelector(selectCartItems);
+    //const { cartItems } = useContext(CartContext);
     const router = useRouter()
     return (
         <CartDropdownContainer>

@@ -4,7 +4,7 @@ import { Product } from "@/components/product-card/product-card.component";
 import { createContext, useReducer, Reducer } from "react";
 import createAction from "@/utils/reducer/reducer.utils"
 
-export type ProductWithQuantity = Product & {
+type ProductWithQuantity = Product & {
     quantity: number;
 };
 

@@ -3,9 +3,13 @@ import CartItemCheckout from "@/components/cart-item-checkout/CartItemCheckout";
 import { CartContext } from "@/contexts/cart.context";
 import { useContext } from "react";
 import { CheckoutContainer, CheckoutHeader, Total } from "./checkout.styles.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems, selectCartTotal } from "@/store/cart/cart.selector";
 
 const page = () => {
-    const { cartItems, addItemToCart, removeCarItem, removeAllOfItemInCart, cartItemsTotal } = useContext(CartContext);
+    //const { cartItems, addItemToCart, removeCarItem, removeAllOfItemInCart, cartItemsTotal } = useContext(CartContext);
+    const cartItems = useSelector(selectCartItems);
+    const cartItemsTotal = useSelector(selectCartTotal);
     return (
         <CheckoutContainer>
             <CheckoutHeader>
@@ -26,7 +30,7 @@ const page = () => {
                 </div>
             </CheckoutHeader>
             {cartItems.map((product) => (
-                <CartItemCheckout product={product} add={addItemToCart} remove={removeCarItem} removeAll={removeAllOfItemInCart} />
+                <CartItemCheckout product={product} cartItems={cartItems} />
             ))}
             <Total>
                 Total: {cartItemsTotal as React.ReactNode}

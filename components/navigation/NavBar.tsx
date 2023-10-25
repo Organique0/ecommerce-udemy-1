@@ -11,10 +11,12 @@ import "./navigation.styles.scss"
 import { useSelector } from "react-redux"; //hook that you pass the selector function. 
 import { selectCurrentUser } from "@/store/user/user.selector"
 import { selectCategoriesMap } from "@/store/categories-redux-example/category.selector"
+import { selectIsCartOpen } from "@/store/cart/cart.selector"
 
 const NavBar = () => {
     const currentUser = useSelector(selectCurrentUser)
-    const { cartOpen } = useContext(CartContext);
+    //const { cartOpen } = useContext(CartContext);
+    const cartOpen = useSelector(selectIsCartOpen);
 
     // INFO: Testing if this Redux thingy is working. I works. But not exactly the way I want. Again, this cannot be used in a server component.
     //const categoriesMap = useSelector(selectCategoriesMap);
