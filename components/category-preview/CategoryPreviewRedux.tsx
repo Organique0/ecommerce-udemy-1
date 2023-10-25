@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link"
 import ProductCard, { Product } from "../product-card/product-card.component"
 import "./category-preview.styles.scss"

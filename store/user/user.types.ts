@@ -6,13 +6,11 @@ export interface UserContextValue {
 }
 export interface UserState {
     currentUser: User | null;
-    // Add other properties in your state if needed.
 }
 interface SetCurrentUserAction {
     type: typeof USER_ACTION_TYPES.SET_CURRENT_USER;
     payload: User | null;
 }
-// Create a union type for all possible action types.
 export type UserAction = SetCurrentUserAction;
 
 
