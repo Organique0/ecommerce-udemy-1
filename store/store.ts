@@ -2,6 +2,7 @@ import { compose, legacy_createStore as createStore, applyMiddleware, Middleware
 import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
 import { persistStore, persistReducer } from "redux-persist";
+import thunk from "redux-thunk";
 //import storage from "redux-persist/lib/storage";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
@@ -23,8 +24,8 @@ const loggerMiddleware = (store: any) => (next: any) => (action: any) => {
 /* const middlewares = [process.env.NODE_ENV !== "production" && logger]
     .filter(Boolean); */ //"remove everything that has falsyiness"
 
+const middlewares: Middleware<{}, any, any>[] = [thunk];
 //this does not raise type warnings unlike the one above
-const middlewares: Middleware<{}, any, any>[] = [];
 if (process.env.NODE_ENV !== "production") {
     middlewares.push(logger);
 }

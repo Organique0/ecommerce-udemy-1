@@ -5,7 +5,7 @@ import "./shop.styles.scss";
 import CategoryPreview from "@/components/category-preview/CategoryPreview";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { setCategories } from "@/store/categories/category.action";
+import { fetchCategoriesAsync, setCategories } from "@/store/categories/category.action";
 import CategoryPreviewRedux from "@/components/category-preview/CategoryPreviewRedux";
 
 export interface Category {
@@ -14,18 +14,22 @@ export interface Category {
 }
 
 const ShopPage = () => {
-    //to work with or without Redux
+    //works with or without Redux
 
     //no redux
     //const categoryMap = await getCategoriesAndDocuments() as Record<string, Product[]>;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const getCategoriesMap = async () => {
-            const categoriesArray = await getCategoriesAndDocumentsContext();
-            dispatch(setCategories(categoriesArray));
-        };
-        getCategoriesMap();
+        //without redux thunk async actions
+        /*         const getCategoriesMap = async () => {
+                    const categoriesArray = await getCategoriesAndDocumentsContext();
+                    dispatch(setCategories(categoriesArray));
+                };
+                getCategoriesMap(); */
+
+        //@ts-ignore will probably get fixed later
+        dispatch(fetchCategoriesAsync());
     }, []);
     return (
         <>
