@@ -1,4 +1,5 @@
 E-commerce app with Redux, Hooks, GraphQL, Stripe, Firebase. Plus Next.js.
+https://www.udemy.com/share/101WH43@jhGNzfKw-xvyE7NGZM9lTyysOK84AVlmJ_eZRr91GVVIVc2OOzCcLRZzzNa_dj7DYw==/
 
 Main focus: Redux
 - extended tools
