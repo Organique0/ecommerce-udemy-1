@@ -7,3 +7,4 @@ Main focus: Redux
 - Redux toolkit
 
 This project is meant more for learning that it is to create an app that just looks cool.
+The core e-commerce app was made really just as a base so that we have something to learn and test on.
