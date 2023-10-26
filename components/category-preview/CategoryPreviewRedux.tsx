@@ -1,13 +1,19 @@
-"use client"
+//"use client"
 import Link from "next/link"
 import ProductCard, { Product } from "../product-card/product-card.component"
 import "./category-preview.styles.scss"
 import { useSelector } from "react-redux"
 import { selectCategoriesMap } from "@/store/categories/category.selector"
+import { getCategoriesAndDocuments } from "@/utils/firebase/firebase.utils"
 
-const CategoryPreviewRedux = () => {
+const CategoryPreviewRedux = async () => {
     // INFO: You can change the number of products in a preview
-    const categoryMap = useSelector(selectCategoriesMap)
+
+    //client side:
+    //const categoryMap = useSelector(selectCategoriesMap)
+
+    //server side:
+    const categoryMap = await getCategoriesAndDocuments() as Record<string, Product[]>;
 
     return (
         <div className='category-preview-container'>

@@ -1,4 +1,4 @@
-"use client"
+//"use client"
 import { Product } from "@/components/product-card/product-card.component";
 import { getCategoriesAndDocumentsContext } from "@/utils/firebase/firebase.utils";
 import "./shop.styles.scss";
@@ -16,21 +16,22 @@ export interface Category {
 const ShopPage = () => {
     //works with or without Redux
 
-    //no redux
+    //no redux, serverside
     //const categoryMap = await getCategoriesAndDocuments() as Record<string, Product[]>;
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
 
-    useEffect(() => {
-        //without redux thunk async actions
-        /*         const getCategoriesMap = async () => {
-                    const categoriesArray = await getCategoriesAndDocumentsContext();
-                    dispatch(setCategories(categoriesArray));
-                };
-                getCategoriesMap(); */
+    //useEffect(() => {
+    //redux without async actions
+    /*         const getCategoriesMap = async () => {
+                const categoriesArray = await getCategoriesAndDocumentsContext();
+                dispatch(setCategories(categoriesArray));
+            };
+            getCategoriesMap(); */
 
-        //@ts-ignore will probably get fixed later
-        dispatch(fetchCategoriesAsync());
-    }, []);
+    //this has been moved to the ReduxProvider file so that it can be used globally in a provider
+    //@ts-ignore will probably get fixed later FIXME
+    //dispatch(fetchCategoriesAsync());
+    //}, []);
     return (
         <>
             {//no redux

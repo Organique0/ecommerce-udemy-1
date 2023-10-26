@@ -19,13 +19,16 @@ export const fetchCategoriesSuccess = (categoriesArray: DocumentData[]) => creat
 export const fetchCategoriesError = (error: any) => createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error);
 
 //"clean separation of logic". "Action driven arhitecture".
-export const fetchCategoriesAsync = () => async (dispatch: Dispatch) => {
-    dispatch(fetchCategoriesStart());
-    try {
-        const categoriesArray = await getCategoriesAndDocumentsContext();
-        fetchCategoriesSuccess(categoriesArray);
-    } catch (error: any) {
-        dispatch(fetchCategoriesError(error));
-    }
-
-}
+//I understand this as we are executing this bit by bit instead of just all at once.
+//also we get loading states with this
+export const fetchCategoriesAsync = () => {
+    return async (dispatch: Dispatch) => {
+        dispatch(fetchCategoriesStart());
+        try {
+            const categoriesArray = await getCategoriesAndDocumentsContext();
+            dispatch(fetchCategoriesSuccess(categoriesArray));
+        } catch (error: any) {
+            dispatch(fetchCategoriesError(error));
+        }
+    };
+};
