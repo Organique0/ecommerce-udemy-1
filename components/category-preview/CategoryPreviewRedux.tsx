@@ -3,7 +3,7 @@ import Link from "next/link"
 import ProductCard, { Product } from "../product-card/product-card.component"
 import "./category-preview.styles.scss"
 import { useSelector } from "react-redux"
-import { selectCategoriesMap } from "@/store/categories-redux-example/category.selector"
+import { selectCategoriesMap } from "@/store/categories/category.selector"
 
 const CategoryPreviewRedux = () => {
     // INFO: You can change the number of products in a preview

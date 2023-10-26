@@ -5,7 +5,7 @@ import "./shop.styles.scss";
 import CategoryPreview from "@/components/category-preview/CategoryPreview";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { setCategories } from "@/store/categories-redux-example/category.action";
+import { setCategories } from "@/store/categories/category.action";
 import CategoryPreviewRedux from "@/components/category-preview/CategoryPreviewRedux";
 
 export interface Category {

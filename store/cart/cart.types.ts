@@ -1,5 +1,5 @@
 import { Product } from "@/components/product-card/product-card.component";
-import { CategoryItem } from "../categories-redux-example/category.types";
+import { CategoryItem } from "../categories/category.types";
 
 export type ProductWithQuantity = Product & {
     quantity: number;

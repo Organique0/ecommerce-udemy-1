@@ -10,7 +10,7 @@ import { CartContext } from "@/contexts/cart.context"
 import "./navigation.styles.scss"
 import { useSelector } from "react-redux"; //hook that you pass the selector function. 
 import { selectCurrentUser } from "@/store/user/user.selector"
-import { selectCategoriesMap } from "@/store/categories-redux-example/category.selector"
+import { selectCategoriesMap } from "@/store/categories/category.selector"
 import { selectIsCartOpen } from "@/store/cart/cart.selector"
 
 const NavBar = () => {
