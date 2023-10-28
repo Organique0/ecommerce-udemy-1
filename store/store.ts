@@ -2,11 +2,17 @@ import { compose, legacy_createStore as createStore, applyMiddleware, Middleware
 import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
 import { persistStore, persistReducer } from "redux-persist";
-import thunk from "redux-thunk";
+//thunk
+//import thunk from "redux-thunk";
 //import storage from "redux-persist/lib/storage";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
-//demystifying middleware 
+//saga
+import createSagaMiddleware from "redux-saga"
+import { rootSaga } from "./root-saga";
+
+//demystifying middleware
+//logger
 const loggerMiddleware = (store: any) => (next: any) => (action: any) => {
     if (!action.type) {
         return next(action);
@@ -21,23 +27,33 @@ const loggerMiddleware = (store: any) => (next: any) => (action: any) => {
     console.log("next state", store.getState());
 }
 
-/* const middlewares = [process.env.NODE_ENV !== "production" && logger]
-    .filter(Boolean); */ //"remove everything that has falsyiness"
+//saga
+const sagaMiddleware = createSagaMiddleware();
 
-const middlewares: Middleware<{}, any, any>[] = [thunk];
+//"remove everything that has falsyiness"
+/* const middlewares = [process.env.NODE_ENV !== "production" && logger]
+    .filter(Boolean); */
+
+//thunk
+//const middlewares: Middleware<{}, any, any>[] = [thunk];
+
+//saga
+const middlewares: Middleware<{}, any, any>[] = [sagaMiddleware];
+
+//logger
 //this does not raise type warnings unlike the one above
 if (process.env.NODE_ENV !== "production") {
     middlewares.push(logger);
 }
 
-//this allows us to use the Redux Chrome extension in development
+//Chrome extension
 const composeEnhancer = (
     process.env.NODE_ENV !== "production" &&
     typeof window !== 'undefined' &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 ) || compose;
 
-//this solves some error
+//2 different types of storage because depending on the rendering
 const createNoopStorage = () => {
     return {
         getItem(_key: string) {
@@ -65,5 +81,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares));
 
 export const store = createStore(persistedReducer, undefined, composedEnhancers);
+
+//saga
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);

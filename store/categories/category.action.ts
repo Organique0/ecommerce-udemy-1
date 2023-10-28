@@ -11,7 +11,7 @@ export const setCategories = (categoriesArray: DocumentData[]) => {
         createAction(CATEGORIES_ACTION_TYPES.SET_CATEGORIES, categoriesArray)
     )
 }
-//async actions
+//thunks, saga
 export const fetchCategoriesStart = () => createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
 
 export const fetchCategoriesSuccess = (categoriesArray: DocumentData[]) => createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categoriesArray);
@@ -21,7 +21,9 @@ export const fetchCategoriesError = (error: any) => createAction(CATEGORIES_ACTI
 //"clean separation of logic". "Action driven arhitecture".
 //I understand this as we are executing this bit by bit instead of just all at once.
 //also we get loading states with this
-export const fetchCategoriesAsync = () => {
+
+//thunks
+/* export const fetchCategoriesAsync = () => {
     return async (dispatch: Dispatch) => {
         dispatch(fetchCategoriesStart());
         try {
@@ -31,4 +33,4 @@ export const fetchCategoriesAsync = () => {
             dispatch(fetchCategoriesError(error));
         }
     };
-};
+}; */

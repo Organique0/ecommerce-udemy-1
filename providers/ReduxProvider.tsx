@@ -7,7 +7,10 @@ import { User } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react"
-import { fetchCategoriesAsync } from "@/store/categories/category.action";
+//thunk
+//import { fetchCategoriesAsync } from "@/store/categories/category.action";
+//saga
+import { fetchCategoriesStart } from "@/store/categories/category.action";
 
 function AuthListener() {
   const dispatch = useDispatch();
@@ -16,7 +19,12 @@ function AuthListener() {
     //@ts-ignore FIXME
     //this is so that we get loading states since it loads the categories on all pages
     //this is not exactly where it optimally should be but ok.
-    dispatch(fetchCategoriesAsync());
+
+    //thunk
+    //dispatch(fetchCategoriesAsync());
+
+    //saga
+    dispatch(fetchCategoriesStart());
 
     const unsubscribe = onAuthStateChangedListener((user: User) => {
       if (user) createUserDocumentFromAuth(user);

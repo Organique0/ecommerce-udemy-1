@@ -10,6 +10,7 @@ const CategoryPreviewRedux = async () => {
     // INFO: You can change the number of products in a preview
 
     //client side:
+    //redux
     //const categoryMap = useSelector(selectCategoriesMap)
 
     //server side:
