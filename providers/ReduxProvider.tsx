@@ -1,8 +1,8 @@
 "use client";
 import { Provider } from "react-redux";
 import { store, persistor } from "../store/store"
-import { setCurrentUser } from "../store/user/user.action";
-import { onAuthStateChangedListener, createUserDocumentFromAuth } from "@/utils/firebase/firebase.utils";
+import { setCurrentUser, checkUserSession } from "../store/user/user.action";
+import { onAuthStateChangedListener, createUserDocumentFromAuth, getCurrentUser } from "@/utils/firebase/firebase.utils";
 import { User } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -25,12 +25,14 @@ function AuthListener() {
 
     //saga
     dispatch(fetchCategoriesStart());
+    dispatch(checkUserSession());
 
-    const unsubscribe = onAuthStateChangedListener((user: User) => {
-      if (user) createUserDocumentFromAuth(user);
-      dispatch(setCurrentUser(user));
-    })
-    return unsubscribe;
+    //old listener
+    /*     const unsubscribe = onAuthStateChangedListener((user: User) => {
+          if (user) createUserDocumentFromAuth(user);
+          dispatch(setCurrentUser(user));
+        })
+        return unsubscribe; */
   }, []);
 
   return null;

@@ -6,29 +6,42 @@ import FormInput from "../form-input/FormInput"
 import { useState, FormEvent, ChangeEvent, useEffect, useContext } from "react"
 import { SignInContainer } from "./sign-in-form.styles.jsx"
 
+//saga
+import { useDispatch } from "react-redux";
+import { githubSignInStart, googleSignInStart, emailSignInStart } from "@/store/user/user.action"
+
 const defaultFormFields = {
     email: "",
     password: "",
 }
 
 const SignInForm = () => {
+    //saga
+    const dispatch = useDispatch();
+
     //TODO: we could show a loader here
     const [loaded, setLoaded] = useState(false);
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
     const logGoogleUser = async () => {
-        await signInWithGooglePopup();
+        //await signInWithGooglePopup();
+        //saga
+        dispatch(googleSignInStart());
     }
 
     const logGithubUser = async () => {
-        await signInWithGithubPopup();
+        //await signInWithGithubPopup();
+        //saga
+        dispatch(githubSignInStart());
     }
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            await signInWithEmailAndPassword(email, password);
+            //await signInWithEmailAndPassword(email, password);
+            //saga
+            dispatch(emailSignInStart(email, password));
             resetFormFields();
         } catch (error: any) {
             if (error.code === "auth/invalid-email"

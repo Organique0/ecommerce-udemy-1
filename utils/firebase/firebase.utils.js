@@ -125,7 +125,9 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
     }
   }
 
-  return userDocRef;
+  //return userDocRef;
+  //saga:
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -149,3 +151,17 @@ export const signOutUser = async () => {
 //permanently open listener that runs the callback when the auth state changes
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+//saga
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};

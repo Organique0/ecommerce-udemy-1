@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { UserContext } from "@/contexts/user.context"
 import { useContext } from "react"
+//before saga
 import { signOutUser } from "@/utils/firebase/firebase.utils"
 import CartIconComponent from "../cart-icon/cart-icon.component"
 import CartDropdown from "../cart-dropdown/cart-dropdown.component"
@@ -12,6 +13,10 @@ import { useSelector } from "react-redux"; //hook that you pass the selector fun
 import { selectCurrentUser } from "@/store/user/user.selector"
 import { selectCategoriesMap } from "@/store/categories/category.selector"
 import { selectIsCartOpen } from "@/store/cart/cart.selector"
+
+//saga
+import { useDispatch } from "react-redux";
+import { signOutStart } from "../../store/user/user.action";
 
 const NavBar = () => {
     const currentUser = useSelector(selectCurrentUser)
@@ -23,6 +28,9 @@ const NavBar = () => {
     //console.log(categoriesMap.categoriesMap);
     //Object.keys(categoriesMap.categoriesMap).map((title) => { console.log(title) });
 
+    //saga
+    const dispatch = useDispatch();
+    const signOutUser = () => dispatch(signOutStart());
 
     return (
         <div className="navigation">
