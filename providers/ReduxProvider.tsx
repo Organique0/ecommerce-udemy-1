@@ -27,7 +27,7 @@ function AuthListener() {
     dispatch(fetchCategoriesStart());
     dispatch(checkUserSession());
 
-    //old listener
+    //old listener (redux)
     /*     const unsubscribe = onAuthStateChangedListener((user: User) => {
           if (user) createUserDocumentFromAuth(user);
           dispatch(setCurrentUser(user));
