@@ -4,13 +4,12 @@ import { rootReducer } from "./root-reducer";
 import { persistStore, persistReducer } from "redux-persist";
 //import storage from "redux-persist/lib/storage";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
-
 //thunk
 import thunk from "redux-thunk";
-
 //saga
 import createSagaMiddleware from "redux-saga"
 import { rootSaga } from "./root-saga";
+
 
 //demystifying middleware
 //logger
@@ -30,16 +29,10 @@ const loggerMiddleware = (store: any) => (next: any) => (action: any) => {
 
 //saga
 const sagaMiddleware = createSagaMiddleware();
-
-//"remove everything that has falsyiness"
-/* const middlewares = [process.env.NODE_ENV !== "production" && logger]
-    .filter(Boolean); */
+const middlewares: Middleware<{}, any, any>[] = [sagaMiddleware];
 
 //thunk
 //const middlewares: Middleware<{}, any, any>[] = [thunk];
-
-//saga
-const middlewares: Middleware<{}, any, any>[] = [sagaMiddleware];
 
 //logger
 //this does not raise type warnings unlike the one above
