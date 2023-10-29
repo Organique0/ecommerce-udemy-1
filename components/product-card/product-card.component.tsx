@@ -21,6 +21,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   const { name, price, imageUrl } = product
   //const { addItemToCart } = useContext(CartContext)
 
+  //redux
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
 

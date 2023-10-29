@@ -2,10 +2,11 @@ import { compose, legacy_createStore as createStore, applyMiddleware, Middleware
 import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
 import { persistStore, persistReducer } from "redux-persist";
-//thunk
-//import thunk from "redux-thunk";
 //import storage from "redux-persist/lib/storage";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+
+//thunk
+import thunk from "redux-thunk";
 
 //saga
 import createSagaMiddleware from "redux-saga"

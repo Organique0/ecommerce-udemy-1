@@ -15,38 +15,15 @@ export interface Category {
 
 const ShopPage = () => {
     //works with or without Redux
+    //redux, thunk and saga are in ReduxProvider
 
-    //no redux, serverside
-    //const categoryMap = await getCategoriesAndDocuments() as Record<string, Product[]>;
-
-    //redux
-    //const dispatch = useDispatch();
-
-    //useEffect(() => {
-    //redux
-    /*         const getCategoriesMap = async () => {
-                const categoriesArray = await getCategoriesAndDocumentsContext();
-                dispatch(setCategories(categoriesArray));
-            };
-            getCategoriesMap(); */
-
-    //this has been moved to the ReduxProvider file so that it can be used globally in a provider
-    //@ts-ignore will probably get fixed later FIXME
-    //dispatch(fetchCategoriesAsync());
-    //}, []);
     return (
-        <>
-            {//no redux
-            /* {
-                Object.keys(categoryMap).map(title => {
-                    const products = categoryMap[title];
-                    return (
-                        <CategoryPreview key={title} title={title} products={products} />
-                    )
-                })
-            } */}
-            <CategoryPreviewRedux />
-        </>
+
+        //no redux, server side
+        <CategoryPreview />
+        //redux
+        //<CategoryPreviewRedux />
+
     )
 }
 

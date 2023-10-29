@@ -1,25 +1,33 @@
 import Link from "next/link"
 import ProductCard, { Product } from "../product-card/product-card.component"
 import "./category-preview.styles.scss"
+import { getCategoriesAndDocuments } from "@/utils/firebase/firebase.utils";
 
-const CategoryPreview = ({ title, products }: { title: string, products: Product[] }) => {
+const CategoryPreview = async () => {
     //INFO:You can change the number of products in a preview
+    //no redux, serverside
 
+    const categoryMap = await getCategoriesAndDocuments() as Record<string, Product[]>;
     return (
-        <div className='category-preview-container'>
-            <h2>
-                <Link className="title" href={`/shop/${title}`}>{title.toUpperCase()}</Link>
-            </h2>
-            <div className="preview">
-                {
-                    products.filter((_, index) => index < 4).map((product: Product) => {
-                        return (
-                            <ProductCard key={product.id} product={product} />
-                        )
-                    })
-                }
-            </div>
-        </div>
+        Object.keys(categoryMap).map(title => {
+            const products = categoryMap[title];
+            return (
+                <div className='category-preview-container'>
+                    <h2>
+                        <Link className="title" href={`/shop/${title}`}>{title.toUpperCase()}</Link>
+                    </h2>
+                    <div className="preview">
+                        {
+                            products.filter((_, index) => index < 4).map((product: Product) => {
+                                return (
+                                    <ProductCard key={product.id} product={product} />
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            )
+        })
     )
 }
 

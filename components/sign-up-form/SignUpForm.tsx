@@ -34,6 +34,7 @@ const SignUpForm = () => {
       return
     };
     try {
+      //firebase
       //const res = await createAuthUserWithEmailAndPassword(email, password);
       //await createUserDocumentFromAuth(res?.user, { displayName });
 

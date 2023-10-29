@@ -25,12 +25,14 @@ const SignInForm = () => {
     const { email, password } = formFields;
 
     const logGoogleUser = async () => {
+        //firebase
         //await signInWithGooglePopup();
         //saga
         dispatch(googleSignInStart());
     }
 
     const logGithubUser = async () => {
+        //firebase
         //await signInWithGithubPopup();
         //saga
         dispatch(githubSignInStart());
@@ -39,6 +41,7 @@ const SignInForm = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
+            //firebase
             //await signInWithEmailAndPassword(email, password);
             //saga
             dispatch(emailSignInStart(email, password));

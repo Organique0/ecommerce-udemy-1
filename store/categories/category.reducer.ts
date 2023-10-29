@@ -4,9 +4,10 @@ export const categoriesReducer = (state = CATEGORIES_INITIAL_STATE, action = <Ca
     const { type, payload } = action;
 
     switch (type) {
-        //without async actions
-        /*         case CATEGORIES_ACTION_TYPES.SET_CATEGORIES:
-                    return { ...state, categories: payload } */
+        //without async actions (redux)
+        //the first one really is only for regular Redux. Remember that.
+        case CATEGORIES_ACTION_TYPES.SET_CATEGORIES:
+            return { ...state, categories: payload }
         case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START:
             return { ...state, isLoading: true };
         case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS:

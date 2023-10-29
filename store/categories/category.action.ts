@@ -5,7 +5,7 @@ import { getCategoriesAndDocumentsContext } from "@/utils/firebase/firebase.util
 import { Dispatch } from "redux";
 
 
-//without async actions
+//without async actions (redux)
 export const setCategories = (categoriesArray: DocumentData[]) => {
     return (
         createAction(CATEGORIES_ACTION_TYPES.SET_CATEGORIES, categoriesArray)
@@ -23,7 +23,7 @@ export const fetchCategoriesError = (error: any) => createAction(CATEGORIES_ACTI
 //also we get loading states with this
 
 //thunks
-/* export const fetchCategoriesAsync = () => {
+export const fetchCategoriesAsync = () => {
     return async (dispatch: Dispatch) => {
         dispatch(fetchCategoriesStart());
         try {
@@ -33,4 +33,4 @@ export const fetchCategoriesError = (error: any) => createAction(CATEGORIES_ACTI
             dispatch(fetchCategoriesError(error));
         }
     };
-}; */
+}; 
