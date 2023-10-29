@@ -4,7 +4,11 @@ import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import Image from "next/image"
 import { useContext, useEffect, useState } from "react"
 import { CartContext } from "@/contexts/cart.context"
+//redux, saga, thunk
 import { addItemToCart } from "@/store/cart/cart.action"
+//toolkit
+import { addItemToCart as addItemToCartToolkit } from "@/redux-toolkit-store/cart/cart.reducer"
+
 import { useDispatch, useSelector } from "react-redux"
 import { selectCartItems } from "@/store/cart/cart.selector"
 import { selectCategoriesIsLoading } from "@/store/categories/category.selector"
@@ -21,12 +25,10 @@ const ProductCard = ({ product }: { product: Product }) => {
   const { name, price, imageUrl } = product
   //const { addItemToCart } = useContext(CartContext)
 
-  //redux
-  const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
 
   function handleAddToCart(product: Product) {
-    dispatch(addItemToCart(cartItems, product))
+    dispatch(addItemToCartToolkit(product))
   }
 
   const [mounted, setMounted] = useState(false);

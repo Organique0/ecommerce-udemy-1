@@ -29,8 +29,8 @@ const NavBar = () => {
     //Object.keys(categoriesMap.categoriesMap).map((title) => { console.log(title) });
 
     //saga
-    const dispatch = useDispatch();
-    const signOutUser = () => dispatch(signOutStart());
+    //const dispatch = useDispatch();
+    //const signOutUser = () => dispatch(signOutStart());
 
     return (
         <div className="navigation">

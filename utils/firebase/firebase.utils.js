@@ -125,9 +125,9 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
     }
   }
 
-  //return userDocRef;
+  return userDocRef;
   //saga:
-  return userSnapshot;
+  //return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {

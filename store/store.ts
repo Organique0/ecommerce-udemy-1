@@ -29,11 +29,11 @@ const loggerMiddleware = (store: any) => (next: any) => (action: any) => {
 
 //saga
 const sagaMiddleware = createSagaMiddleware();
-const middlewares: Middleware<{}, any, any>[] = [sagaMiddleware];
 
 //thunk
 //const middlewares: Middleware<{}, any, any>[] = [thunk];
 
+const middlewares: Middleware<{}, any, any>[] = [];
 //logger
 //this does not raise type warnings unlike the one above
 if (process.env.NODE_ENV !== "production") {

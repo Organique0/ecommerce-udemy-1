@@ -24,7 +24,7 @@ const SignUpForm = () => {
   const { displayName, email, password, confirmPassword } = formFields;
 
   //saga
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
 
   const handleSubmit = async (e: FormEvent) => {
@@ -35,11 +35,11 @@ const SignUpForm = () => {
     };
     try {
       //firebase
-      //const res = await createAuthUserWithEmailAndPassword(email, password);
-      //await createUserDocumentFromAuth(res?.user, { displayName });
+      const res = await createAuthUserWithEmailAndPassword(email, password);
+      await createUserDocumentFromAuth(res?.user, { displayName });
 
       //saga
-      dispatch(signUpStart(email, password, displayName));
+      //dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
