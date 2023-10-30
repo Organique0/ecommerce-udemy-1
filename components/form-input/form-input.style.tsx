@@ -32,7 +32,7 @@ export const FormInputField = styled.input`
 `;
 
 interface FormInputLabelProps {
-  shrink: boolean;
+  shrink: boolean | undefined;
 }
 
 export const FormInputLabel = styled.label<FormInputLabelProps>`

@@ -8,7 +8,7 @@ export interface UserState {
     currentUser: User | null;
 }
 interface SetCurrentUserAction {
-    type: string;
+    type: typeof USER_ACTION_TYPES.SET_CURRENT_USER;
     payload: User | null;
 }
 export type UserAction = SetCurrentUserAction;

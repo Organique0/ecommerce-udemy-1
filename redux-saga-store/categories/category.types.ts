@@ -15,6 +15,7 @@ export type Category = {
 
 export interface CategoryState {
     categories: Category[];
+    isLoading: boolean;
     error: any;
 }
 
@@ -27,10 +28,13 @@ export type CategoryAction = SetCategoriesMapAction;
 
 
 export const CATEGORIES_ACTION_TYPES = {
-    SET_CATEGORIES: "category/SET_CATEGORIES_MAP",
+    FETCH_CATEGORIES_START: "category/FETCH_CATEGORIES_START",
+    FETCH_CATEGORIES_SUCCESS: "category/FETCH_CATEGORIES_SUCCESS",
+    FETCH_CATEGORIES_FAILED: "category/FETCH_CATEGORIES_FAILED",
 }
 
 export const CATEGORIES_INITIAL_STATE: CategoryState = {
     categories: [],
+    isLoading: false,
     error: null,
 }

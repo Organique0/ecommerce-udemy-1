@@ -7,7 +7,8 @@ import CartItem from "../cart-item/CartItem";
 import { useRouter } from "next/navigation";
 import { CartDropdownContainer, CartItems, EmptyMessage } from "./cart-dropdown.styles.jsx";
 import { useSelector } from "react-redux";
-import { selectCartItems } from "@/store/cart/cart.selector";
+//saga
+import { selectCartItems } from "@/redux-saga-store/cart/cart.selector";
 
 const CartDropdown = () => {
     const cartItems = useSelector(selectCartItems);

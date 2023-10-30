@@ -3,7 +3,6 @@ import { getCategoriesAndDocumentsContext } from "@/utils/firebase/firebase.util
 import { fetchCategoriesSuccess, fetchCategoriesError } from "./category.action";
 import { CATEGORIES_ACTION_TYPES } from "./category.types";
 
-//saga
 export function* fetchCategoriesAsync() {
     try {
         //@ts-ignore FIXME: types

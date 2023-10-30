@@ -4,15 +4,17 @@ import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import Image from "next/image"
 import { useContext, useEffect, useState } from "react"
 import { CartContext } from "@/contexts/cart.context"
-//redux, saga, thunk
-import { addItemToCart } from "@/store/cart/cart.action"
-//toolkit
-import { addItemToCart as addItemToCartToolkit } from "@/redux-toolkit-store/cart/cart.reducer"
-
 import { useDispatch, useSelector } from "react-redux"
-import { selectCartItems } from "@/store/cart/cart.selector"
-import { selectCategoriesIsLoading } from "@/store/categories/category.selector"
+import { selectCartItems } from "@/redux-saga-store/cart/cart.selector"
 import Spinner from "../spinner/spinner.component"
+
+import { selectCategoriesIsLoading as SCILSaga } from "@/redux-saga-store/categories/category.selector";
+import { selectCategoriesIsLoading as SCILThunk } from "@/redux-thunk-store/categories/category.selector";
+
+import { addItemToCart as addItemToCartRedux } from "@/store/cart/cart.action"
+import { addItemToCart as addItemToCartSaga } from "@/redux-saga-store/cart/cart.action"
+import { addItemToCart as addItemToCartThunk } from "@/redux-thunk-store/cart/cart.action"
+import { addItemToCart as addItemToCartToolkit } from "@/redux-toolkit-store/cart/cart.reducer"
 
 export interface Product {
   id: number,
@@ -25,10 +27,16 @@ const ProductCard = ({ product }: { product: Product }) => {
   const { name, price, imageUrl } = product
   //const { addItemToCart } = useContext(CartContext)
 
+  //saga, not needed in toolkit
+  const cartItems = useSelector(selectCartItems);
+
   const dispatch = useDispatch();
 
   function handleAddToCart(product: Product) {
-    dispatch(addItemToCartToolkit(product))
+    dispatch(addItemToCartSaga(cartItems, product));
+    //toolkit
+    //in toolkit we do not pass cartItems
+    //dispatch(addItemToCartToolkit(product));
   }
 
   const [mounted, setMounted] = useState(false);
@@ -36,7 +44,8 @@ const ProductCard = ({ product }: { product: Product }) => {
     setMounted(true);
   }, []);
 
-  const isLoading = useSelector(selectCategoriesIsLoading);
+  //only in thunk and saga
+  const isLoading = useSelector(SCILSaga);
 
   return (
     <div className="product-card-container">

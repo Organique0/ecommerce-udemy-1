@@ -2,41 +2,22 @@ import { compose, legacy_createStore as createStore, applyMiddleware, Middleware
 import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
 import { persistStore, persistReducer } from "redux-persist";
-//import storage from "redux-persist/lib/storage";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import thunk from "redux-thunk";
 
 
-//demystifying middleware
-//logger
-const loggerMiddleware = (store: any) => (next: any) => (action: any) => {
-    if (!action.type) {
-        return next(action);
-    }
+const middlewares: Middleware<{}, any, any>[] = [thunk];
 
-    console.log('type', action.type);
-    console.log('payload', action.payload);
-    console.log('currentState', store.getState());
-
-    next(action);
-
-    console.log("next state", store.getState());
-}
-
-const middlewares: Middleware<{}, any, any>[] = [];
-//logger
-//this does not raise type warnings unlike the one above
 if (process.env.NODE_ENV !== "production") {
     middlewares.push(logger);
 }
 
-//Chrome extension
 const composeEnhancer = (
     process.env.NODE_ENV !== "production" &&
     typeof window !== 'undefined' &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 ) || compose;
 
-//2 different types of storage because depending on the rendering
 const createNoopStorage = () => {
     return {
         getItem(_key: string) {
@@ -56,7 +37,7 @@ const storage = typeof window !== 'undefined' ? createWebStorage('local') : crea
 const persistConfig = {
     key: "root",
     storage,
-    blacklist: ['cart'],
+    blacklist: ['user'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -14,9 +14,9 @@ interface FormInputProps {
 const FormInput = ({ label, type, ...other }: FormInputProps) => {
     return (
         <GroupContainer >
-            <FormInputField type={type} {...other} />
+            <FormInputField type={type} {...other} autoComplete="password" />
             {label &&
-                <FormInputLabel shrink={!!other.value.length}>
+                <FormInputLabel shrink={other.value.length ? true : undefined}>
                     {label}
                 </FormInputLabel>
             }

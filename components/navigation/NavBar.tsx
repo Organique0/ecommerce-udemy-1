@@ -10,17 +10,17 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component"
 import { CartContext } from "@/contexts/cart.context"
 import "./navigation.styles.scss"
 import { useSelector } from "react-redux"; //hook that you pass the selector function. 
-import { selectCurrentUser } from "@/store/user/user.selector"
-import { selectCategoriesMap } from "@/store/categories/category.selector"
-import { selectIsCartOpen } from "@/store/cart/cart.selector"
+import { selectCurrentUser } from "@/redux-saga-store/user/user.selector"
+import { selectCategoriesMap } from "@/redux-saga-store/categories/category.selector"
+import { selectIsCartOpen } from "@/redux-saga-store/cart/cart.selector"
 
 //saga
 import { useDispatch } from "react-redux";
-import { signOutStart } from "../../store/user/user.action";
+import { signOutStart } from "../../redux-saga-store/user/user.action";
 
 const NavBar = () => {
-    const currentUser = useSelector(selectCurrentUser)
     //const { cartOpen } = useContext(CartContext);
+    const currentUser = useSelector(selectCurrentUser)
     const cartOpen = useSelector(selectIsCartOpen);
 
     // INFO: Testing if this Redux thingy is working. I works. But not exactly the way I want. Again, this cannot be used in a server component.
@@ -29,8 +29,8 @@ const NavBar = () => {
     //Object.keys(categoriesMap.categoriesMap).map((title) => { console.log(title) });
 
     //saga
-    //const dispatch = useDispatch();
-    //const signOutUser = () => dispatch(signOutStart());
+    const dispatch = useDispatch();
+    const signOutUser = () => dispatch(signOutStart());
 
     return (
         <div className="navigation">

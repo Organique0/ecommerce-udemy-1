@@ -5,6 +5,7 @@ import { Category, CategoryItem, CategoryState } from "./category.types";
 
 const selectCategoriesData = (state: RootState) => {
     //look, I am a noob. When you cannot fix something just put a bandage on it.
+    console.log(state.categories);
     return state.categories as CategoryState;
 };
 

@@ -8,7 +8,7 @@ import { SignInContainer } from "./sign-in-form.styles.jsx"
 
 //saga
 import { useDispatch } from "react-redux";
-import { githubSignInStart, googleSignInStart, emailSignInStart } from "@/store/user/user.action"
+import { githubSignInStart, googleSignInStart, emailSignInStart } from "@/redux-saga-store/user/user.action"
 
 const defaultFormFields = {
     email: "",
@@ -17,7 +17,7 @@ const defaultFormFields = {
 
 const SignInForm = () => {
     //saga
-    //const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     //TODO: we could show a loader here
     const [loaded, setLoaded] = useState(false);
@@ -26,25 +26,25 @@ const SignInForm = () => {
 
     const logGoogleUser = async () => {
         //firebase
-        await signInWithGooglePopup();
+        //await signInWithGooglePopup();
         //saga
-        //dispatch(googleSignInStart());
+        dispatch(googleSignInStart());
     }
 
     const logGithubUser = async () => {
         //firebase
-        await signInWithGithubPopup();
+        //await signInWithGithubPopup();
         //saga
-        //dispatch(githubSignInStart());
+        dispatch(githubSignInStart());
     }
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
             //firebase
-            await signInWithEmailAndPassword(email, password);
+            //await signInWithEmailAndPassword(email, password);
             //saga
-            //dispatch(emailSignInStart(email, password));
+            dispatch(emailSignInStart(email, password));
             resetFormFields();
         } catch (error: any) {
             if (error.code === "auth/invalid-email"

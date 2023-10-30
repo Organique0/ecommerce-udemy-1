@@ -4,7 +4,7 @@ import { CartContext } from "@/contexts/cart.context";
 import { useContext } from "react";
 import { CheckoutContainer, CheckoutHeader, Total } from "./checkout.styles.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCartItems, selectCartTotal } from "@/store/cart/cart.selector";
+import { selectCartItems, selectCartTotal } from "@/redux-saga-store/cart/cart.selector";
 
 const page = () => {
     //const { cartItems, addItemToCart, removeCarItem, removeAllOfItemInCart, cartItemsTotal } = useContext(CartContext);

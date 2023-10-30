@@ -3,16 +3,15 @@ import Link from "next/link"
 import ProductCard, { Product } from "../product-card/product-card.component"
 import "./category-preview.styles.scss"
 import { useDispatch, useSelector } from "react-redux"
-import { selectCategoriesMap } from "@/store/categories/category.selector"
-import { getCategoriesAndDocuments } from "@/utils/firebase/firebase.utils"
+//saga
+import { selectCategoriesMap } from "@/redux-saga-store/categories/category.selector";
+
 
 //async in server, normal in client
 const CategoryPreviewRedux = () => {
     // INFO: You can change the number of products in a preview
 
-    //client side:
-    //redux, saga, thunk
-    const categoryMap = useSelector(selectCategoriesMap)
+    const categoryMap = useSelector(selectCategoriesMap);
 
     return (
         <div className='category-preview-container'>
