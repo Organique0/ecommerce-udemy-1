@@ -11,6 +11,9 @@ import { selectCategoriesMap } from "@/redux-saga-store/categories/category.sele
 const CategoryPreviewRedux = () => {
     // INFO: You can change the number of products in a preview
 
+    //server side
+    //const categoryMap = await getCategoriesAndDocuments() as Record<string, Product[]>;
+
     const categoryMap = useSelector(selectCategoriesMap);
 
     return (
