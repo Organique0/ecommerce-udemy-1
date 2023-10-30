@@ -1,4 +1,3 @@
-"use client"
 import { ChangeEvent } from "react"
 import { GroupContainer, FormInputLabel, FormInputField } from "./form-input.style"
 
