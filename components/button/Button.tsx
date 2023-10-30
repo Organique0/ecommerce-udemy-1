@@ -1,5 +1,5 @@
 "use client"
-import { BaseButton, GithubSignInButton, GoogleSignInButton, InvertedButton } from "./button.styles.jsx"
+import { BaseButton, ButtonSpinner, GithubSignInButton, GoogleSignInButton, InvertedButton } from "./button.styles.jsx"
 export const BUTTON_TYPE_CLASSES = {
     base: "base",
     google: "google-sign-in",
@@ -10,9 +10,9 @@ export const BUTTON_TYPE_CLASSES = {
 interface ButtonProps {
     type: "button" | "submit" | "reset" | undefined,
     children: string,
+    isLoading?: boolean,
     buttonType?: string,
-    other?: Object,
-    onClick?: () => void,
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
 
 const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
@@ -24,11 +24,11 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
 }[buttonType])
 
 
-const Button = ({ children, buttonType, type, ...other }: ButtonProps) => {
+const Button = ({ children, buttonType, isLoading, type, ...other }: ButtonProps) => {
     const CustomButton = getButton(buttonType);
     return (
-        <CustomButton {...other} type={type}>
-            {children}
+        <CustomButton disabled={isLoading} {...other} type={type}>
+            {isLoading ? <ButtonSpinner /> : children}
         </CustomButton>
     )
 }

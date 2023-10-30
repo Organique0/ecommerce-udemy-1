@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
+    "@stripe/react-stripe-js": "^2.3.1",
+    "@stripe/stripe-js": "^2.1.10",
+    "axios": "^1.6.0",
     "firebase": "^10.4.0",
     "next": "13.5.4",
     "next-redux-wrapper": "^8.1.0",
@@ -23,6 +26,7 @@
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.8",
     "sass": "^1.69.0",
+    "stripe": "^14.2.0",
     "styled-components": "^6.1.0"
   },
   "devDependencies": {

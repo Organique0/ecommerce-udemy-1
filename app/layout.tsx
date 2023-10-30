@@ -10,6 +10,8 @@ import ReduxProvider from '@/providers/ReduxProvider'
 import ReduxProviderSaga from '@/providers/ReduxProviderSaga'
 import ReduxProviderThunk from '@/providers/ReduxProviderThunk'
 import ReduxProviderToolkit from '@/providers/ReduxProviderToolkit'
+import { StripeProvider } from '@/contexts/stripe.context'
+
 
 const sans = Open_Sans({ subsets: ['latin'], })
 
@@ -52,12 +54,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={sans.className}>
         <SelectedProvider>
-          {/* <UserProvider> */}
-          {/* <CartProvider> */}
-          <NavBar />
-          {children}
-          {/* </CartProvider> */}
-          {/* </UserProvider> */}
+          <StripeProvider>
+            {/* <UserProvider> */}
+            {/* <CartProvider> */}
+            <NavBar />
+            {children}
+            {/* </CartProvider> */}
+            {/* </UserProvider> */}
+          </StripeProvider>
         </SelectedProvider>
       </body>
     </html>

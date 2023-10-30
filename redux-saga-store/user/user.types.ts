@@ -6,7 +6,7 @@ export interface UserState {
 }
 interface SetCurrentUserAction {
     type: string;
-    payload: User | null;
+    payload: User;
 }
 export type UserAction = SetCurrentUserAction;
 

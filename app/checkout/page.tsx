@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { CheckoutContainer, CheckoutHeader, Total } from "./checkout.styles.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems, selectCartTotal } from "@/redux-saga-store/cart/cart.selector";
+import PaymentForm from "@/components/payment-form/PaymentForm"
 
 const page = () => {
     //const { cartItems, addItemToCart, removeCarItem, removeAllOfItemInCart, cartItemsTotal } = useContext(CartContext);
@@ -35,6 +36,7 @@ const page = () => {
             <Total>
                 Total: {cartItemsTotal as React.ReactNode}
             </Total>
+            <PaymentForm />
         </CheckoutContainer>
     )
 }
