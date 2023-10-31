@@ -1,5 +1,5 @@
 "use client"
-import { ProductWithQuantity } from "@/contexts/cart.context";
+import { ProductWithQuantity } from "@/redux-saga-store/cart/cart.types";
 import Image from "next/image";
 import "./cart-items.styles.scss"
 
