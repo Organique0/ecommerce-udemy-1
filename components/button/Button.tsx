@@ -1,21 +1,22 @@
 "use client"
+import { FC, ButtonHTMLAttributes } from "react";
 import { BaseButton, ButtonSpinner, GithubSignInButton, GoogleSignInButton, InvertedButton } from "./button.styles.jsx"
-export const BUTTON_TYPE_CLASSES = {
-    base: "base",
-    google: "google-sign-in",
-    inverted: "inverted",
-    github: "github-sign-in",
+
+export enum BUTTON_TYPE_CLASSES {
+    base = "base",
+    google = "google-sign-in",
+    inverted = "inverted",
+    github = "github-sign-in",
 }
 
-interface ButtonProps {
-    type: "button" | "submit" | "reset" | undefined,
-    children: string,
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    //type: "button" | "submit" | "reset" | undefined,
     isLoading?: boolean,
-    buttonType?: string,
-    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
+    buttonType?: BUTTON_TYPE_CLASSES,
+    // onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
 
-const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
+const getButton = (buttonType = BUTTON_TYPE_CLASSES.base): typeof BaseButton =>
 ({
     [BUTTON_TYPE_CLASSES.base]: BaseButton,
     [BUTTON_TYPE_CLASSES.google]: GoogleSignInButton,
@@ -24,7 +25,7 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
 }[buttonType])
 
 
-const Button = ({ children, buttonType, isLoading, type, ...other }: ButtonProps) => {
+const Button: FC<ButtonProps> = ({ children, buttonType, isLoading, type, ...other }) => {
     const CustomButton = getButton(buttonType);
     return (
         <CustomButton disabled={isLoading} {...other} type={type}>

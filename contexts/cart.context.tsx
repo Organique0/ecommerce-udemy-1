@@ -1,34 +1,31 @@
 "use client"
 //Here as an example of using React context
-import { Product } from "@/components/product-card/product-card.component";
 import { createContext, useReducer, Reducer } from "react";
-import createAction from "@/utils/reducer/reducer.utils"
+import { createAction } from "@/utils/reducer/reducer.utils"
+import { CategoryItemWithQuantity } from "@/redux-saga-store/cart/cart.types";
 
-type ProductWithQuantity = Product & {
-    quantity: number;
-};
 
 interface CartContextValue {
     cartOpen: boolean;
     setCartOpen: (isOpen: boolean) => void;
-    cartItems: Array<ProductWithQuantity>,
-    addItemToCart: (item: ProductWithQuantity) => void;
+    cartItems: Array<CategoryItemWithQuantity>,
+    addItemToCart: (item: CategoryItemWithQuantity) => void;
     cartItemsCount: number,
     cartItemsTotal: number,
-    removeCarItem: (itemToRemove: ProductWithQuantity) => void;
-    removeAllOfItemInCart: (itemToRemove: ProductWithQuantity) => void;
+    removeCarItem: (itemToRemove: CategoryItemWithQuantity) => void;
+    removeAllOfItemInCart: (itemToRemove: CategoryItemWithQuantity) => void;
 }
 
 type CartState = {
     cartOpen: boolean;
-    cartItems: ProductWithQuantity[];
+    cartItems: CategoryItemWithQuantity[];
     cartItemsCount: number;
     cartItemsTotal: number;
 };
 
 const INITIAL_STATE: CartState = {
     cartOpen: false,
-    cartItems: [] as ProductWithQuantity[],
+    cartItems: [] as CategoryItemWithQuantity[],
     cartItemsCount: 0 as number,
     cartItemsTotal: 0 as number,
 }
@@ -41,12 +38,12 @@ const CART_ACTIONS = {
 export const CartContext = createContext({
     cartOpen: false,
     setCartOpen: (isOpen: boolean) => { },
-    cartItems: [] as ProductWithQuantity[],
-    addItemToCart: (item: ProductWithQuantity) => { },
+    cartItems: [] as CategoryItemWithQuantity[],
+    addItemToCart: (item: CategoryItemWithQuantity) => { },
     cartItemsCount: 0 as Number,
     cartItemsTotal: 0 as Number,
-    removeCarItem: (itemToRemove: ProductWithQuantity) => { },
-    removeAllOfItemInCart: (itemToRemove: ProductWithQuantity) => { },
+    removeCarItem: (itemToRemove: CategoryItemWithQuantity) => { },
+    removeAllOfItemInCart: (itemToRemove: CategoryItemWithQuantity) => { },
 });
 
 const cartReducer: Reducer<CartState, any> = (state, action) => {
@@ -72,7 +69,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const [{ cartItems, cartOpen, cartItemsCount, cartItemsTotal }, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
 
-    const updateCartItems = (newCartItems: Array<ProductWithQuantity>) => {
+    const updateCartItems = (newCartItems: Array<CategoryItemWithQuantity>) => {
         const newCartCount = newCartItems.reduce((total, cartItem) => {
             return total + cartItem.quantity;
         }, 0);
@@ -88,7 +85,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
 
-    const addCartItem = (itemToAdd: ProductWithQuantity) => {
+    const addCartItem = (itemToAdd: CategoryItemWithQuantity) => {
         const existingCartItem = cartItems.find((cartItem) => itemToAdd.id === cartItem.id);
 
         if (existingCartItem) {
@@ -101,12 +98,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
         return [...cartItems, { ...itemToAdd, quantity: 1 }];
     }
-    const addItemToCart = (item: ProductWithQuantity) => {
+    const addItemToCart = (item: CategoryItemWithQuantity) => {
         const newCartItems = addCartItem(item);
         updateCartItems(newCartItems);
     };
 
-    const removeItemFromCart = (itemToRemove: ProductWithQuantity) => {
+    const removeItemFromCart = (itemToRemove: CategoryItemWithQuantity) => {
         const existingCartItem = cartItems.find((cartItem) => itemToRemove.id === cartItem.id);
 
         if (existingCartItem && existingCartItem.quantity == 1) {
@@ -122,16 +119,16 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
         return [...cartItems, { ...itemToRemove }];
     }
-    const removeCarItem = (itemToRemove: ProductWithQuantity) => {
+    const removeCarItem = (itemToRemove: CategoryItemWithQuantity) => {
         const newCartItems = removeItemFromCart(itemToRemove);
         updateCartItems(newCartItems);
     };
 
 
-    const removeAllOfItem = (itemToRemove: ProductWithQuantity) => {
+    const removeAllOfItem = (itemToRemove: CategoryItemWithQuantity) => {
         return cartItems.filter((cartItem) => cartItem.id !== itemToRemove.id);
     }
-    const removeAllOfItemInCart = (itemToRemove: ProductWithQuantity) => {
+    const removeAllOfItemInCart = (itemToRemove: CategoryItemWithQuantity) => {
         const newCartItems = removeAllOfItem(itemToRemove);
         updateCartItems(newCartItems);
     }

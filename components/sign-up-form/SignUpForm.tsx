@@ -1,5 +1,6 @@
 "use client"
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react"
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "@/utils/firebase/firebase.utils"
 import FormInput from "../form-input/FormInput"
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
@@ -27,7 +28,7 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
 
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match");
@@ -41,8 +42,8 @@ const SignUpForm = () => {
       //saga
       dispatch(signUpStart(email, password, displayName));
       resetFormFields();
-    } catch (error: any) {
-      if (error.code === "auth/email-already-in-use") {
+    } catch (error) {
+      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         alert("Email already in use");
       }
       console.log(error);

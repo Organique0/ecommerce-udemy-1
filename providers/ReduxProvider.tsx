@@ -24,7 +24,7 @@ function AuthListener() {
     };
     getCategoriesMap();
 
-    const unsubscribe = onAuthStateChangedListener((user: User) => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) createUserDocumentFromAuth(user);
       dispatch(setCurrentUser(user));
     })

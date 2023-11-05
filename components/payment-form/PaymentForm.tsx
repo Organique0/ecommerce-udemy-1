@@ -1,5 +1,6 @@
 "use client";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { StripeCardElement } from "@stripe/stripe-js";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button";
 import { PaymentFormContainer, FormContainer, PaymentButton } from "./payment-form.styles";
 import axios from "axios";
@@ -7,6 +8,8 @@ import { FormEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCartTotal } from "@/redux-saga-store/cart/cart.selector";
 import { selectCurrentUser } from "@/redux-saga-store/user/user.selector";
+
+const isValidCardElement = (card: StripeCardElement | null): card is StripeCardElement => card !== null;
 
 const PaymentForm = () => {
     const stripe = useStripe();
@@ -35,9 +38,13 @@ const PaymentForm = () => {
 
         //we have the card element from stripe which contains the card details entered by the user
         //you can just pass it in here 
+
+        const cardDetails = elements.getElement(CardElement);
+        if (!isValidCardElement(cardDetails)) return;
+
         const paymentResult = await stripe.confirmCardPayment(client_secret, {
             payment_method: {
-                card: elements.getElement(CardElement)!,
+                card: cardDetails,
                 billing_details: {
                     //The nullish coalescing operator allows you to specify a default value if the left-hand side is null or undefined.
                     //At least that is what ai said. I trust it.

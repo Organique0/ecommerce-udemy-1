@@ -1,10 +1,11 @@
 "use client"
 import Link from "next/link"
-import ProductCard, { Product } from "../product-card/product-card.component"
+import ProductCard from "../product-card/product-card.component"
 import "./category-preview.styles.scss"
 import { useDispatch, useSelector } from "react-redux"
 //saga
 import { selectCategoriesMap } from "@/redux-saga-store/categories/category.selector";
+import { CategoryItem } from "@/redux-saga-store/categories/category.types"
 
 
 //async in server, normal in client
@@ -27,7 +28,7 @@ const CategoryPreviewRedux = () => {
                             <Link className="title" href={`/shop/${title}`}>{title.toUpperCase()}</Link>
                         </h2>
                         <div className="preview">
-                            {products.filter((_: any, index: number) => index < 4).map((product: Product) => (
+                            {products.filter((_: any, index: number) => index < 4).map((product: CategoryItem) => (
                                 <ProductCard key={product.id} product={product} />
                             ))}
                         </div>

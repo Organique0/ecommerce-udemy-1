@@ -1,21 +1,16 @@
-import { ChangeEvent } from "react"
+import { ChangeEvent, FC, InputHTMLAttributes } from "react"
 import { GroupContainer, FormInputLabel, FormInputField } from "./form-input.style"
 
-interface FormInputProps {
+interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string,
-    type: string,
-    required: boolean,
-    name: string,
-    value: string,
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void,
 }
 
-const FormInput = ({ label, type, ...other }: FormInputProps) => {
+const FormInput: FC<FormInputProps> = ({ label, type, ...other }) => {
     return (
         <GroupContainer >
             <FormInputField type={type} {...other} autoComplete="password" />
             {label &&
-                <FormInputLabel shrink={other.value.length ? true : undefined}>
+                <FormInputLabel shrink={Boolean(other.value && typeof other.value === "string" && other.value.length)}>
                     {label}
                 </FormInputLabel>
             }

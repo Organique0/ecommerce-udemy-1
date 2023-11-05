@@ -4,12 +4,13 @@ import "./checkout-item.styles.scss"
 import { useDispatch } from "react-redux";
 
 //redux, saga, thunk
-import { CartItem, ProductWithQuantity } from "@/redux-saga-store/cart/cart.types";
+import { CategoryItemWithQuantity } from "@/redux-saga-store/cart/cart.types";
 import { addItemToCart, removeAllOfItemInCart, removeCartItem } from "@/redux-saga-store/cart/cart.action";
 //toolkit
 import { addItemToCart as addItemToCartToolkit, removeCartItem as removeCartItemToolkit, clearCartItem } from "@/redux-toolkit-store/cart/cart.reducer";
+import { CategoryItem } from "@/redux-saga-store/categories/category.types";
 
-const CartItemCheckout = ({ product, cartItems }: { product: ProductWithQuantity, cartItems: CartItem[] }) => {
+const CartItemCheckout = ({ product, cartItems }: { product: CategoryItemWithQuantity, cartItems: CategoryItemWithQuantity[] }) => {
     const { id, imageUrl, name, price, quantity } = product;
 
     const dispatch = useDispatch();

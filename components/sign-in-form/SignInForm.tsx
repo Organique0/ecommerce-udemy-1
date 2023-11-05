@@ -38,7 +38,7 @@ const SignInForm = () => {
         dispatch(githubSignInStart());
     }
 
-    const handleSubmit = async (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             //firebase

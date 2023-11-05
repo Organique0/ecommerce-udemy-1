@@ -1,10 +1,10 @@
 "use client"
 import { getCategoriesAndDocuments } from "@/utils/firebase/firebase.utils";
-import ProductCard, { Product } from "@/components/product-card/product-card.component";
+import ProductCard from "@/components/product-card/product-card.component";
 import "./category.styles.scss"
 import { useSelector } from "react-redux";
 import { selectCategoriesMap } from "@/redux-saga-store/categories/category.selector";
-import { ProductWithQuantity } from "@/redux-saga-store/cart/cart.types";
+import { CategoryItem } from "@/redux-saga-store/categories/category.types";
 interface CategoryPageProps {
     params: {
         category: string
@@ -24,7 +24,7 @@ const CategoryPage = ({ params }: CategoryPageProps) => {
             <h1>{category}</h1>
             <div className="category-container">
                 {
-                    categoryMap[category]?.map((product: ProductWithQuantity) => (
+                    categoryMap[category]?.map((product: CategoryItem) => (
                         <ProductCard key={product.id} product={product} />
                     ))
                 }
