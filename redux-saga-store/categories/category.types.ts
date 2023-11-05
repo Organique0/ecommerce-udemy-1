@@ -1,4 +1,4 @@
-import { Product } from "@/components/product-card/product-card.component";
+
 
 export type CategoryItem = {
     id: number;
@@ -7,34 +7,30 @@ export type CategoryItem = {
     price: number;
 };
 
+
+interface SetCategoriesMapAction {
+    type: string;
+    payload: Record<string, CategoryItem[]> | Object;
+}
+
+export type CategoryAction = SetCategoriesMapAction;
+
+
+export type CategoryMap = {
+    [key: string]: CategoryItem[];
+}
+
+
 export type Category = {
     title: string;
     imageUrl: string;
     items: CategoryItem[];
 };
 
-export interface CategoryState {
-    categories: Category[];
-    isLoading: boolean;
-    error: any;
+export enum CATEGORIES_ACTION_TYPES {
+    FETCH_CATEGORIES_START = "category/FETCH_CATEGORIES_START",
+    FETCH_CATEGORIES_SUCCESS = "category/FETCH_CATEGORIES_SUCCESS",
+    FETCH_CATEGORIES_FAILED = "category/FETCH_CATEGORIES_FAILED",
 }
 
-interface SetCategoriesMapAction {
-    type: string;
-    payload: Record<string, Product[]> | Object;
-}
 
-export type CategoryAction = SetCategoriesMapAction;
-
-
-export const CATEGORIES_ACTION_TYPES = {
-    FETCH_CATEGORIES_START: "category/FETCH_CATEGORIES_START",
-    FETCH_CATEGORIES_SUCCESS: "category/FETCH_CATEGORIES_SUCCESS",
-    FETCH_CATEGORIES_FAILED: "category/FETCH_CATEGORIES_FAILED",
-}
-
-export const CATEGORIES_INITIAL_STATE: CategoryState = {
-    categories: [],
-    isLoading: false,
-    error: null,
-}

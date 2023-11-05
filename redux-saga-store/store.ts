@@ -1,14 +1,21 @@
-import { compose, legacy_createStore as createStore, applyMiddleware, Middleware } from "redux";
+import { compose, legacy_createStore as createStore, applyMiddleware, Middleware, Dispatch, AnyAction } from "redux";
 import logger from "redux-logger";
-import { rootReducer } from "./root-reducer";
-import { persistStore, persistReducer } from "redux-persist";
+import { RootState, rootReducer } from "./root-reducer";
+import { persistStore, persistReducer, PersistConfig } from "redux-persist";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import createSagaMiddleware from "redux-saga"
 import { rootSaga } from "./root-saga";
 
+
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
 const sagaMiddleware = createSagaMiddleware();
 
-const middlewares: Middleware<{}, any, any>[] = [sagaMiddleware];
+const middlewares: Middleware<{}, any, Dispatch<AnyAction>>[] = [sagaMiddleware];
 
 if (process.env.NODE_ENV !== "production") {
     middlewares.push(logger);
@@ -17,7 +24,7 @@ if (process.env.NODE_ENV !== "production") {
 const composeEnhancer = (
     process.env.NODE_ENV !== "production" &&
     typeof window !== 'undefined' &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 ) || compose;
 
 
@@ -36,8 +43,11 @@ const createNoopStorage = () => {
 };
 const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
 
+type ExtendedPersistConfig = PersistConfig<RootState> & {
+    whitelist: (keyof RootState)[];
+}
 
-const persistConfig = {
+const persistConfig: ExtendedPersistConfig = {
     key: "root",
     storage,
     whitelist: ['cart'],

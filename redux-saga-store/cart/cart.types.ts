@@ -1,25 +1,23 @@
-import { Product } from "@/components/product-card/product-card.component";
 import { CategoryItem } from "../categories/category.types";
 
-export type ProductWithQuantity = Product & {
+
+export enum CART_ACTIONS_TYPES {
+    SET_CART_ITEMS = "cart/SET_CART_ITEMS",
+    TOGGLE_CART_OPEN = "cart/TOGGLE_CART_OPEN",
+    SET_CART_COUNT = "cart/SET_CART_COUNT",
+    SET_CART_TOTAL = "cart/SET_CART_TOTAL",
+}
+export type CategoryItemWithQuantity = CategoryItem & {
     quantity: number;
 };
-export const CART_ACTIONS = {
-    SET_CART_ITEMS: "cart/SET_CART_ITEMS",
-    TOGGLE_CART_OPEN: "cart/TOGGLE_CART_OPEN",
-    SET_CART_COUNT: "cart/SET_CART_COUNT",
-    SET_CART_TOTAL: "cart/SET_CART_TOTAL",
-}
+
+
 export type CartState = {
     cartOpen: boolean;
-    cartItems: CartItem[];
+    cartItems: CategoryItemWithQuantity[];
 };
 
 export const CART_INITIAL_STATE: CartState = {
     cartOpen: false,
-    cartItems: [] as CartItem[],
+    cartItems: [],
 }
-
-export type CartItem = CategoryItem & {
-    quantity: number;
-};

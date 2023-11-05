@@ -15,15 +15,17 @@ import { addItemToCart as addItemToCartRedux } from "@/store/cart/cart.action"
 import { addItemToCart as addItemToCartSaga } from "@/redux-saga-store/cart/cart.action"
 import { addItemToCart as addItemToCartThunk } from "@/redux-thunk-store/cart/cart.action"
 import { addItemToCart as addItemToCartToolkit } from "@/redux-toolkit-store/cart/cart.reducer"
+import { CategoryItem } from "@/redux-saga-store/categories/category.types"
 
-export interface Product {
+/* export interface Product {
   id: number,
   name: string,
   imageUrl: string,
-  price: number,
+  price: number, 
 }
+*/
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product }: { product: CategoryItem }) => {
   const { name, price, imageUrl } = product
   //const { addItemToCart } = useContext(CartContext)
 
@@ -32,7 +34,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   const dispatch = useDispatch();
 
-  function handleAddToCart(product: Product) {
+  function handleAddToCart(product: CategoryItem) {
     dispatch(addItemToCartSaga(cartItems, product));
     //toolkit
     //in toolkit we do not pass cartItems

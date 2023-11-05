@@ -1,78 +1,86 @@
-import { takeLatest, put, all, call } from "redux-saga/effects";
+import { takeLatest, put, all, call } from "typed-redux-saga";
 import { USER_ACTION_TYPES } from "./user.types";
-import { signInSuccess, signInFailed, googleSignInStart, githubSignInStart, signUpSuccess, signUpFailed, signOutSuccess, signOutFailed } from "./user.action";
-import { createUserDocumentFromAuth, getCurrentUser, signInWithGithubPopup, signInWithGooglePopup, signInWithEmailAndPassword, createAuthUserWithEmailAndPassword, signOutUser } from "../../utils/firebase/firebase.utils";
+import { signInSuccess, signInFailed, googleSignInStart, githubSignInStart, signUpSuccess, signUpFailed, signOutSuccess, signOutFailed, EmailSignInStart, SignUpStart, SignUpSuccess } from "./user.action";
+import { createUserDocumentFromAuth, getCurrentUser, signInWithGithubPopup, signInWithGooglePopup, signInWithEmailAndPassword, createAuthUserWithEmailAndPassword, signOutUser, additionalInfo } from "../../utils/firebase/firebase.utils";
 import { User, signOut } from "firebase/auth";
 
-export function* getSnapshotFromUserAuth(userAuth: any, additionalDetails: any) {
+export function* getSnapshotFromUserAuth(userAuth: User, additionalDetails?: additionalInfo) {
     try {
-        //@ts-ignore
-        const userSnapshot = yield call(createUserDocumentFromAuth, userAuth, additionalDetails);
-        yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }))
-    } catch (error: any) {
-        yield put(signInFailed(error));
+
+        const userSnapshot = yield* call(createUserDocumentFromAuth, userAuth, additionalDetails);
+        if (userSnapshot) {
+            yield* put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }))
+        }
+    } catch (error) {
+        yield* put(signInFailed(error as Error));
     }
 }
 
 export function* isUserAuthenticated() {
     try {
-        //@ts-ignore
-        const userAuth = yield call(getCurrentUser);
-        if (!userAuth) return;
-        //@ts-ignore
-        yield call(getSnapshotFromUserAuth, userAuth);
 
-    } catch (error: any) {
-        yield put(signInFailed(error));
+        const userAuth = yield* call(getCurrentUser);
+        if (!userAuth) return;
+
+        yield* call(getSnapshotFromUserAuth, userAuth);
+
+    } catch (error) {
+        yield* put(signInFailed(error as Error));
     }
 }
 
 export function* SignInWithGoogle() {
-    console.log('Signing in with Google');
     try {
-        const { user } = yield call(signInWithGooglePopup);
-        //@ts-ignore
-        yield call(getSnapshotFromUserAuth, user);
-    } catch (error: any) {
-        yield put(signInFailed(error));
-    }
-}
-export function* SignInWithGithub() {
-    try {
-        const { user } = yield call(signInWithGithubPopup);
-        //@ts-ignore
-        yield call(getSnapshotFromUserAuth, user);
-    } catch (error: any) {
-        yield put(signInFailed(error));
+        const { user } = yield* call(signInWithGooglePopup);
+
+        yield* call(getSnapshotFromUserAuth, user);
+    } catch (error) {
+        yield* put(signInFailed(error as Error));
     }
 }
 
-export function* SignInWithEmail({ payload: { email, password } }: { payload: { email: String, password: String } }) {
+export function* SignInWithGithub() {
     try {
-        const { user } = yield call(
+        const { user } = yield* call(signInWithGithubPopup);
+
+        yield* call(getSnapshotFromUserAuth, user);
+    } catch (error) {
+        yield* put(signInFailed(error as Error));
+    }
+}
+
+export function* SignInWithEmail({ payload: { email, password } }: EmailSignInStart) {
+    try {
+        const userCrendential = yield* call(
             signInWithEmailAndPassword,
             email,
             password
         );
-        //@ts-ignore
-        yield call(getSnapshotFromUserAuth, user);
+
+        if (userCrendential) {
+            const { user } = userCrendential;
+            yield* call(getSnapshotFromUserAuth, user);
+        }
     } catch (error) {
-        yield put(signInFailed(error));
+        yield* put(signInFailed(error as Error));
     }
 }
 
-export function* SignUp({ payload: { email, password, displayName } }: { payload: { email: String, password: String, displayName: string } }) {
+export function* SignUp({ payload: { email, password, displayName } }: SignUpStart) {
     try {
-        const { user } = yield call(createAuthUserWithEmailAndPassword, email, password);
-        yield put(signUpSuccess(user, { displayName }));
+        const userCrendential = yield* call(createAuthUserWithEmailAndPassword, email, password);
+        if (userCrendential) {
+            const { user } = userCrendential;
+            yield* put(signUpSuccess(user, { displayName }));
+        }
     } catch (error) {
-        yield put(signUpFailed(error));
+        yield* put(signUpFailed(error as Error));
     }
 }
 
-export function* SignInAfterSignUp({ payload: { user, additionalDetails } }: { payload: { user: User, additionalDetails: any } }) {
+export function* SignInAfterSignUp({ payload: { user, additionalDetails } }: SignUpSuccess) {
     try {
-        yield call(getSnapshotFromUserAuth, user, additionalDetails);
+        yield* call(getSnapshotFromUserAuth, user, additionalDetails);
     } catch (error) {
 
     }
@@ -80,43 +88,43 @@ export function* SignInAfterSignUp({ payload: { user, additionalDetails } }: { p
 
 export function* SignOut() {
     try {
-        yield call(signOutUser);
-        yield put(signOutSuccess());
-    } catch (error: any) {
-        yield put(signOutFailed(error));
+        yield* call(signOutUser);
+        yield* put(signOutSuccess());
+    } catch (error) {
+        yield* put(signOutFailed(error as Error));
     }
 }
 
 export function* onGoogleSignInStart() {
-    yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, SignInWithGoogle)
+    yield* takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, SignInWithGoogle)
 }
 export function* onGithubSignInStart() {
-    yield takeLatest(USER_ACTION_TYPES.GITHUB_SIGN_IN_START, SignInWithGithub)
+    yield* takeLatest(USER_ACTION_TYPES.GITHUB_SIGN_IN_START, SignInWithGithub)
 }
 
 export function* onCheckUserSession() {
-    yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated)
+    yield* takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated)
 }
 
 export function* onEmailSignInStart() {
-    //@ts-ignore
-    yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, SignInWithEmail);
+
+    yield* takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, SignInWithEmail);
 }
 
 export function* onSignUpStart() {
-    //@ts-ignore
-    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_START, SignUp);
+
+    yield* takeLatest(USER_ACTION_TYPES.SIGN_UP_START, SignUp);
 }
 
 export function* onSignUpSuccess() {
-    //@ts-ignore
-    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, SignInAfterSignUp);
+
+    yield* takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, SignInAfterSignUp);
 }
 
 export function* onSignOutStart() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, SignOut);
+    yield* takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, SignOut);
 }
 
 export function* userSagas() {
-    yield all([call(onCheckUserSession), call(onGoogleSignInStart), call(onGithubSignInStart), call(onEmailSignInStart), call(onSignUpStart), call(onSignUpSuccess), call(onSignOutStart)]);
+    yield* all([call(onCheckUserSession), call(onGoogleSignInStart), call(onGithubSignInStart), call(onEmailSignInStart), call(onSignUpStart), call(onSignUpSuccess), call(onSignOutStart)]);
 }

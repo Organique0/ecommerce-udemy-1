@@ -1,21 +1,21 @@
 import { createSelector } from "reselect";
 import { RootState } from "../root-reducer";
 import { DocumentData } from "firebase/firestore";
-import { Category, CategoryItem, CategoryState } from "./category.types";
+import { Category, CategoryItem, CategoryMap } from "./category.types";
+import { CategoryState } from "./category.reducer";
 
-const selectCategoriesData = (state: RootState) => {
-    //look, I am a noob. When you cannot fix something just put a bandage on it.
-    return state.categories as CategoryState;
+const selectCategoriesData = (state: RootState): CategoryState => {
+    return state.categories;
 };
 
 export const selectCategoriesMap = createSelector(
     [selectCategoriesData],
-    (categories) => {
-        return categories.categories.reduce((acc: { [x: string]: any }, category: { title: string; items: CategoryItem[] }) => {
+    (categories): CategoryMap => {
+        return categories.categories.reduce((acc, category) => {
             const { title, items } = category;
             acc[title.toLowerCase()] = items;
             return acc;
-        }, {});
+        }, {} as CategoryMap);
     }
 );
 
