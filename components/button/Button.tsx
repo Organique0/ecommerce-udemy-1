@@ -1,6 +1,6 @@
 "use client"
 import { FC, ButtonHTMLAttributes } from "react";
-import { BaseButton, ButtonSpinner, GithubSignInButton, GoogleSignInButton, InvertedButton } from "./button.styles.jsx"
+import { BaseButton, ButtonSpinner, GithubSignInButton, GoogleSignInButton, InvertedButton } from "./button.styles"
 
 export enum BUTTON_TYPE_CLASSES {
     base = "base",

@@ -1,4 +1,4 @@
-import createAction from "@/utils/reducer/reducer.utils"
+import { createAction } from "@/utils/reducer/reducer.utils"
 import { User } from "firebase/auth"
 import { USER_ACTION_TYPES } from "./user.types"
 

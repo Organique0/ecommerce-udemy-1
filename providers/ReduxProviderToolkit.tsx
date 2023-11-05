@@ -27,6 +27,8 @@ function AuthListener() {
       if (user) createUserDocumentFromAuth(user);
       //be default it uses a middleware that raises an error when you pass a non-serializable value as payload
       //in this case this is the user data from firebase
+      //this is all broken now since i changed the function to be saga specific
+      //@ts-ignore
       const pickedUser = user && (({ accessToken, email }) => ({ accessToken, email }))(user);
       dispatch(setCurrentUserToolkit(pickedUser));
     })

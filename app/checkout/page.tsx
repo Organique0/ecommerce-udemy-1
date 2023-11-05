@@ -2,7 +2,7 @@
 import CartItemCheckout from "@/components/cart-item-checkout/CartItemCheckout";
 import { CartContext } from "@/contexts/cart.context";
 import { useContext } from "react";
-import { CheckoutContainer, CheckoutHeader, Total } from "./checkout.styles.jsx";
+import { CheckoutContainer, CheckoutHeader, Total } from "./checkout.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems, selectCartTotal } from "@/redux-saga-store/cart/cart.selector";
 import PaymentForm from "@/components/payment-form/PaymentForm"

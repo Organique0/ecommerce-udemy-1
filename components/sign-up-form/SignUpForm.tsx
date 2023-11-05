@@ -4,7 +4,7 @@ import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "@/utils/firebase/firebase.utils"
 import FormInput from "../form-input/FormInput"
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
-import { SignUpContainer } from "./sign-up-form.styles.jsx"
+import { SignUpContainer } from "./sign-up-form.styles"
 
 //saga
 import { useDispatch } from "react-redux";

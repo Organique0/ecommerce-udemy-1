@@ -1,4 +1,3 @@
-import { Product } from "@/components/product-card/product-card.component";
 
 export type CategoryItem = {
     id: number;
@@ -21,7 +20,7 @@ export interface CategoryState {
 
 interface SetCategoriesMapAction {
     type: string;
-    payload: Record<string, Product[]> | Object;
+    payload: Record<string, CategoryItem[]> | Object;
 }
 
 export type CategoryAction = SetCategoriesMapAction;

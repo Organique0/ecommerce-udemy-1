@@ -1,9 +1,10 @@
-import { Product } from "@/components/product-card/product-card.component";
-import { CART_ACTIONS, CART_INITIAL_STATE, CartItem, CartState, ProductWithQuantity } from "./cart.types";
-import { createSlice } from "@reduxjs/toolkit";
-import createAction from "@/utils/reducer/reducer.utils";
 
-const addCartItem = (cartItems: CartItem[], itemToAdd: Product) => {
+import { CART_INITIAL_STATE, CartItem } from "./cart.types";
+import { createSlice } from "@reduxjs/toolkit";
+import { CategoryItem } from "@/redux-saga-store/categories/category.types";
+import { CategoryItemWithQuantity } from "@/redux-saga-store/cart/cart.types";
+
+const addCartItem = (cartItems: CartItem[], itemToAdd: CategoryItem) => {
     const existingCartItem = cartItems.find((cartItem) => itemToAdd.id === cartItem.id);
 
     if (existingCartItem) {
@@ -17,7 +18,7 @@ const addCartItem = (cartItems: CartItem[], itemToAdd: Product) => {
     return [...cartItems, { ...itemToAdd, quantity: 1 }];
 }
 
-const removeItemFromCart = (cartItems: CartItem[], itemToRemove: ProductWithQuantity) => {
+const removeItemFromCart = (cartItems: CartItem[], itemToRemove: CategoryItemWithQuantity) => {
     const existingCartItem = cartItems.find((cartItem) => itemToRemove.id === cartItem.id);
 
     if (existingCartItem && existingCartItem.quantity == 1) {
@@ -33,7 +34,7 @@ const removeItemFromCart = (cartItems: CartItem[], itemToRemove: ProductWithQuan
 
     return [...cartItems, { ...itemToRemove }];
 }
-const removeAllOfItem = (cartItems: CartItem[], itemToRemove: ProductWithQuantity) => {
+const removeAllOfItem = (cartItems: CartItem[], itemToRemove: CategoryItemWithQuantity) => {
     return cartItems.filter((cartItem) => cartItem.id !== itemToRemove.id);
 }
 

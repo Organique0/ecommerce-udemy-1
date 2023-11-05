@@ -1,9 +1,9 @@
-import { Product } from "@/components/product-card/product-card.component";
+
 import { CategoryItem } from "../categories/category.types";
 
-export type ProductWithQuantity = Product & {
+/* export type ProductWithQuantity = Product & {
     quantity: number;
-};
+}; */
 export const CART_ACTIONS = {
     SET_CART_ITEMS: "cart/SET_CART_ITEMS",
     TOGGLE_CART_OPEN: "cart/TOGGLE_CART_OPEN",

@@ -1,11 +1,11 @@
 "use client"
 import { useContext } from "react";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
-import "./cart-dropdown.styles.jsx"
+import "./cart-dropdown.styles"
 import { CartContext } from "@/contexts/cart.context";
 import CartItem from "../cart-item/CartItem";
 import { useRouter } from "next/navigation";
-import { CartDropdownContainer, CartItems, EmptyMessage } from "./cart-dropdown.styles.jsx";
+import { CartDropdownContainer, CartItems, EmptyMessage } from "./cart-dropdown.styles";
 import { useSelector } from "react-redux";
 //saga
 import { selectCartItems } from "@/redux-saga-store/cart/cart.selector";
@@ -23,7 +23,7 @@ const CartDropdown = () => {
                     )
                 }
                 {cartItems.map((product) => (
-                    <CartItem cartItem={product} />
+                    <CartItem {...product} />
                 ))}
             </CartItems>
             <Button type="button" buttonType={BUTTON_TYPE_CLASSES.base} onClick={() => router.push('/checkout')}>Go to checkout</Button>

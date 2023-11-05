@@ -4,7 +4,7 @@ import { signInWithGooglePopup, createUserDocumentFromAuth, signInWithGithubPopu
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import FormInput from "../form-input/FormInput"
 import { useState, FormEvent, ChangeEvent, useEffect, useContext } from "react"
-import { SignInContainer } from "./sign-in-form.styles.jsx"
+import { SignInContainer } from "./sign-in-form.styles"
 
 //saga
 import { useDispatch } from "react-redux";
