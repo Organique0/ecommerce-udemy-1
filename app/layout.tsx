@@ -6,10 +6,10 @@ import "./index.scss"
 import { UserProvider } from '@/contexts/user.context'
 import { CartProvider } from '@/contexts/cart.context'
 //new providers
-import ReduxProvider from '@/providers/ReduxProvider'
+//import ReduxProvider from '@/providers/ReduxProvider'
 import ReduxProviderSaga from '@/providers/ReduxProviderSaga'
-import ReduxProviderThunk from '@/providers/ReduxProviderThunk'
-import ReduxProviderToolkit from '@/providers/ReduxProviderToolkit'
+//import ReduxProviderThunk from '@/providers/ReduxProviderThunk'
+//import ReduxProviderToolkit from '@/providers/ReduxProviderToolkit'
 import { StripeProvider } from '@/contexts/stripe.context'
 
 
@@ -31,29 +31,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  let SelectedProvider = ReduxProvider;
-  switch (providerType) {
-    case 'saga':
-      SelectedProvider = ReduxProviderSaga;
-      break;
-    case 'thunk':
-      SelectedProvider = ReduxProviderThunk;
-      break;
-    case 'toolkit':
-      SelectedProvider = ReduxProviderToolkit;
-      break;
-    case "redux":
-      SelectedProvider = ReduxProvider;
-      break;
-    default:
-      break;
-  }
+
 
   //user and cart providers are from react context
   return (
     <html lang="en">
       <body className={sans.className}>
-        <SelectedProvider>
+        <ReduxProviderSaga>
           <StripeProvider>
             {/* <UserProvider> */}
             {/* <CartProvider> */}
@@ -62,7 +46,7 @@ export default function RootLayout({
             {/* </CartProvider> */}
             {/* </UserProvider> */}
           </StripeProvider>
-        </SelectedProvider>
+        </ReduxProviderSaga>
       </body>
     </html>
   )

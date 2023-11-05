@@ -20,7 +20,7 @@ function AuthListener() {
     //@ts-ignore
     dispatch(fetchCategoriesAsync());
 
-    const unsubscribe = onAuthStateChangedListener((user: User) => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) createUserDocumentFromAuth(user);
       dispatch(setCurrentUser(user));
     })

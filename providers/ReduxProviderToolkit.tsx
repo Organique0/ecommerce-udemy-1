@@ -23,7 +23,7 @@ function AuthListener() {
     };
     getCategoriesMap();
 
-    const unsubscribe = onAuthStateChangedListener((user: UserWithToken) => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) createUserDocumentFromAuth(user);
       //be default it uses a middleware that raises an error when you pass a non-serializable value as payload
       //in this case this is the user data from firebase
