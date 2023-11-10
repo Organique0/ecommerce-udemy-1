@@ -1,7 +1,7 @@
 import NavBar from '@/components/navigation/NavBar'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
-import "./index.scss"
+//import "./index.scss"
 //old providers
 import { UserProvider } from '@/contexts/user.context'
 import { CartProvider } from '@/contexts/cart.context'
@@ -12,6 +12,7 @@ import ReduxProviderSaga from '@/providers/ReduxProviderSaga'
 //import ReduxProviderToolkit from '@/providers/ReduxProviderToolkit'
 import { StripeProvider } from '@/contexts/stripe.context'
 
+import { GlobalStyle } from './global.styles';
 
 const sans = Open_Sans({ subsets: ['latin'], })
 
@@ -36,6 +37,12 @@ export default function RootLayout({
   //user and cart providers are from react context
   return (
     <html lang="en">
+      <GlobalStyle />
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/Gartoon-Team-Gartoon-Apps-Accessories-calculator.512.png"></link>
+        <meta name="theme-color" content="#000" />
+      </head>
       <body className={sans.className}>
         <ReduxProviderSaga>
           <StripeProvider>
