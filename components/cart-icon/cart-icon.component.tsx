@@ -1,3 +1,4 @@
+"use client"
 import "./cart-icon.styles.scss";
 import React, { useContext } from "react";
 import cartIcon from "./../../assets/shopping-bag.svg"
@@ -18,7 +19,7 @@ const CartIconComponent = () => {
 
     return (
         <div className="cart-icon-container" onClick={() => dispatch(setIsCartOpen(!cartOpen))}>
-            <Image src={cartIcon} alt="cart-icon" className="shopping-icon" />
+            <Image src={cartIcon} alt="cart-icon-image" className="shopping-icon" />
             <span className="item-count">{cartItemsCount}</span>
         </div>
     )
