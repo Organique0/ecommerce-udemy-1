@@ -23,10 +23,17 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./*"
-      ]
+      ],
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/app/*": [
+        "app/*"
+      ],
     }
   },
   "include": [
@@ -34,7 +41,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "store/cart/cart.selector.js"
+    "store/cart/cart.selector.js",
+    "./jest-setup.js"
   ],
   "exclude": [
     "node_modules"

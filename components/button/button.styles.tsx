@@ -26,6 +26,7 @@ export const BaseButton = styled.button`
     border: 1px solid black;
   }
 `;
+BaseButton.displayName = 'BaseButton';
 
 export const GoogleSignInButton = styled(BaseButton)`
   background-color: #4285f4;
@@ -36,7 +37,7 @@ export const GoogleSignInButton = styled(BaseButton)`
     border: none;
   }
 `;
-
+GoogleSignInButton.displayName = 'GoogleSignInButton';
 export const GithubSignInButton = styled(BaseButton)`
   background-color: #9e42f4;
   color: white;
